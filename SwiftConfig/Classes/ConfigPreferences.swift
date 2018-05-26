@@ -16,6 +16,9 @@ fileprivate func configCallout(prefs: SCPreferences, notificationType: SCPrefere
 }
 
 open class ConfigPreferences {
+    public typealias Key = CFString
+    public typealias Value = CFPropertyList
+    
     private var _prefs: SCPreferences? = nil
     open var prefs: SCPreferences { return self._prefs! }
     open var callout: ((SCPreferencesNotification) -> ())?
@@ -71,15 +74,15 @@ open class ConfigPreferences {
         SCPreferencesSynchronize(self.prefs)
     }
     
-    open var signature: CFData? {
-        return SCPreferencesGetSignature(self.prefs)
+    open var signature: Data? {
+        return SCPreferencesGetSignature(self.prefs) as NSData? as Data?
     }
     
-    open var keys: CFArray? {
-        return SCPreferencesCopyKeyList(self.prefs)
+    open var keys: [Key]? {
+        return SCPreferencesCopyKeyList(self.prefs) as? [Key]
     }
     
-    open subscript(_ key: CFString) -> CFPropertyList? {
+    open subscript(_ key: Key) -> Value? {
         get {
             return SCPreferencesGetValue(self.prefs, key)
         }
@@ -92,33 +95,33 @@ open class ConfigPreferences {
         }
     }
     
-    open subscript(path path: CFString) -> CFDictionary? {
+    open subscript(path path: CFString) -> [Key: CFPropertyList]? {
         get {
-            return SCPreferencesPathGetValue(self.prefs, path)
+            return SCPreferencesPathGetValue(self.prefs, path) as? [Key: CFPropertyList]
         }
         set(value) {
             if let value = value {
-                SCPreferencesPathSetValue(self.prefs, path, value)
+                SCPreferencesPathSetValue(self.prefs, path, value as CFDictionary)
             } else {
                 SCPreferencesPathRemoveValue(self.prefs, path)
             }
         }
     }
     
-    open func createUniqueChild(prefix: CFString) -> CFString? {
+    open func createUniqueChild(prefix: Key) -> Key? {
         return SCPreferencesPathCreateUniqueChild(self.prefs, prefix)
     }
     
-    open func getLink(path: CFString) -> CFString? {
+    open func getLink(path: Key) -> Key? {
         return SCPreferencesPathGetLink(self.prefs, path)
     }
     
-    open func setLink(path: CFString, link: CFString) -> Bool {
+    open func setLink(path: Key, link: Key) -> Bool {
         return SCPreferencesPathSetLink(self.prefs, path, link)
     }
     
-    open func serviceCreate(interface: SCNetworkInterface) -> NetworkService? {
-        guard let result = SCNetworkServiceCreate(self.prefs, interface) else { return nil }
+    open func serviceCreate(interface: NetworkInterface) -> NetworkService? {
+        guard let result = SCNetworkServiceCreate(self.prefs, interface.interface) else { return nil }
         return NetworkService(result)
     }
     
@@ -151,8 +154,16 @@ open class ConfigPreferences {
         return SCPreferencesSetComputerName(self.prefs, name, nameEncoding)
     }
     
+    open func setComputerName(name: String?, nameEncoding: CFStringEncoding) -> Bool {
+        return self.setComputerName(name: name as CFString?, nameEncoding: nameEncoding)
+    }
+    
     open func setLocalHostName(name: CFString?) -> Bool {
         return SCPreferencesSetLocalHostName(self.prefs, name)
+    }
+    
+    open func setLocalHostName(name: String?) -> Bool {
+        return self.setLocalHostName(name: name as CFString?)
     }
     
     // MARK: Bond

@@ -29,13 +29,14 @@ open class NetworkConnection {
         self._conn = conn
     }
     
-    open var userPreferences: (serviceID: CFString, userOptions: CFDictionary)? {
+    open var userPreferences: (serviceID: CFString, userOptions: [CFString: CFPropertyList])? {
         var serviceID = Unmanaged<CFString>.passUnretained("" as CFString)
         var userOptions = Unmanaged<CFDictionary>.passUnretained([:] as CFDictionary)
 
         guard SCNetworkConnectionCopyUserPreferences(nil, &serviceID, &userOptions) else { return nil }
         
-        return (serviceID: serviceID.takeRetainedValue(), userOptions: userOptions.takeRetainedValue())
+        return (serviceID: serviceID.takeRetainedValue(),
+                userOptions: userOptions.takeRetainedValue() as! [CFString: CFPropertyList])
     }
     
     open var serviceID: CFString? {
@@ -46,23 +47,23 @@ open class NetworkConnection {
         return SCNetworkConnectionGetStatus(self.conn)
     }
     
-    open var extendedStatus: CFDictionary? {
-        return SCNetworkConnectionCopyExtendedStatus(self.conn)
+    open var extendedStatus: [CFString: CFPropertyList]? {
+        return SCNetworkConnectionCopyExtendedStatus(self.conn) as? [CFString: CFPropertyList]
     }
     
-    open var statistics: CFDictionary? {
-        return SCNetworkConnectionCopyStatistics(self.conn)
+    open var statistics: [CFString: CFPropertyList]? {
+        return SCNetworkConnectionCopyStatistics(self.conn) as? [CFString: CFPropertyList]
     }
     
-    open func start(userOptions: CFDictionary?, linger: Bool) -> Bool {
-        return SCNetworkConnectionStart(self.conn, userOptions, linger)
+    open func start(userOptions: [CFString: CFPropertyList]?, linger: Bool) -> Bool {
+        return SCNetworkConnectionStart(self.conn, userOptions as CFDictionary, linger)
     }
     
     open func stop(forceDisconnect: Bool) -> Bool {
         return SCNetworkConnectionStop(self.conn, forceDisconnect)
     }
     
-    open var userOptions: CFDictionary? {
-        return SCNetworkConnectionCopyUserOptions(self.conn)
+    open var userOptions: [CFString: CFPropertyList]? {
+        return SCNetworkConnectionCopyUserOptions(self.conn) as? [CFString: CFPropertyList]
     }
 }

@@ -56,30 +56,30 @@ open class DynamicStore {
         }
     }
     
-    open var computerInfo: (name: CFString?, encoding: CFStringEncoding?) {
+    open var computerInfo: (name: String?, encoding: CFStringEncoding?) {
         var encoding: CFStringEncoding = 0
-        let name = SCDynamicStoreCopyComputerName(self.store, &encoding)
+        let name = SCDynamicStoreCopyComputerName(self.store, &encoding) as String?
         return (name: name, encoding: encoding)
     }
     
-    open var consoleUser: (uid: uid_t?, gid: gid_t?, info: CFString?) {
+    open var consoleUser: (uid: uid_t?, gid: gid_t?, info: String?) {
         var uid: uid_t = 0
         var gid: gid_t = 0
-        let info = SCDynamicStoreCopyConsoleUser(store, &uid, &gid)
+        let info = SCDynamicStoreCopyConsoleUser(store, &uid, &gid) as String?
         guard info != nil else { return (uid: nil, gid: nil, info: nil) }
         return (uid: uid, gid: gid, info: info)
     }
     
-    open var localHostName: CFString? {
-        return SCDynamicStoreCopyLocalHostName(store)
+    open var localHostName: String? {
+        return SCDynamicStoreCopyLocalHostName(store) as String?
     }
     
     open var currentLocationIdentifier: CFString? {
         return SCDynamicStoreCopyLocalHostName(store)
     }
     
-    open var proxies: CFDictionary? {
-        return SCDynamicStoreCopyProxies(store)
+    open var proxies: [CFString: CFPropertyList]? {
+        return SCDynamicStoreCopyProxies(store) as? [CFString: CFPropertyList]
     }
     
     open func key(domain: CFString, globalEntity: CFString) -> Key {

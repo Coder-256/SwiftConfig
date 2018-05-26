@@ -40,11 +40,11 @@ open class NetworkService {
         return NetworkInterface(interface)
     }
     
-    open var name: CFString? {
+    open var name: String? {
         get {
-        return SCNetworkServiceGetName(self.service)
+            return SCNetworkServiceGetName(self.service) as String?
         } set {
-            SCNetworkServiceSetName(self.service, name)
+            SCNetworkServiceSetName(self.service, name as CFString?)
         }
     }
     

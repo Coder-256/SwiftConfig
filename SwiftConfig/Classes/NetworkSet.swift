@@ -32,11 +32,11 @@ open class NetworkSet {
         return arr.map { NetworkService($0) }
     }
     
-    open var name: CFString? {
+    open var name: String? {
         get {
-            return SCNetworkSetGetName(self.set)
+            return SCNetworkSetGetName(self.set) as String?
         } set {
-            SCNetworkSetSetName(self.set, newValue)
+            SCNetworkSetSetName(self.set, newValue as CFString?)
         }
     }
     

@@ -22,41 +22,41 @@ open class NetworkInterface {
         return arr.map { NetworkInterface($0) }
     }
     
-    open var supportedInterfaceTypes: CFArray? {
-        return SCNetworkInterfaceGetSupportedInterfaceTypes(self.interface)
+    open var supportedInterfaceTypes: [CFString]? {
+        return SCNetworkInterfaceGetSupportedInterfaceTypes(self.interface) as? [CFString]
     }
     
-    open var supportedProtocolTypes: CFArray? {
-        return SCNetworkInterfaceGetSupportedProtocolTypes(self.interface)
+    open var supportedProtocolTypes: [CFString]? {
+        return SCNetworkInterfaceGetSupportedProtocolTypes(self.interface) as? [CFString]
     }
     
-    open func with(interfaceTypeLayer: CFString) -> NetworkInterface? {
-        guard let result = SCNetworkInterfaceCreateWithInterface(self.interface, interfaceTypeLayer) else { return nil }
+    open func with(interfaceLayerType: CFString) -> NetworkInterface? {
+        guard let result = SCNetworkInterfaceCreateWithInterface(self.interface, interfaceLayerType) else { return nil }
         return NetworkInterface(result)
     }
     
-    open var bsdName: CFString? {
-        return SCNetworkInterfaceGetBSDName(self.interface)
+    open var bsdName: String? {
+        return SCNetworkInterfaceGetBSDName(self.interface) as String?
     }
     
-    open var configuration: CFDictionary? {
+    open var configuration: [CFString: CFPropertyList]? {
         get {
-            return SCNetworkInterfaceGetConfiguration(self.interface)
+            return SCNetworkInterfaceGetConfiguration(self.interface) as? [CFString: CFPropertyList]
         } set {
-            SCNetworkInterfaceSetConfiguration(self.interface, newValue)
+            SCNetworkInterfaceSetConfiguration(self.interface, newValue as CFDictionary?)
         }
     }
     
-    open func configuration(extendedType: CFString) -> CFDictionary? {
-        return SCNetworkInterfaceGetExtendedConfiguration(self.interface, extendedType)
+    open func configuration(extendedType: CFString) -> [CFString: CFPropertyList]? {
+        return SCNetworkInterfaceGetExtendedConfiguration(self.interface, extendedType) as? [CFString: CFPropertyList]
     }
     
-    @discardableResult open func setExtendedConfiguration(type extendedType: CFString, config: CFDictionary?) -> Bool {
-        return SCNetworkInterfaceSetExtendedConfiguration(self.interface, extendedType, config)
+    @discardableResult open func setExtendedConfiguration(type: CFString, config: [CFString: CFPropertyList]?) -> Bool {
+        return SCNetworkInterfaceSetExtendedConfiguration(self.interface, type, config as CFDictionary?)
     }
     
-    open var hardwareAddress: CFString? {
-        return SCNetworkInterfaceGetHardwareAddressString(self.interface)
+    open var hardwareAddress: String? {
+        return SCNetworkInterfaceGetHardwareAddressString(self.interface) as String?
     }
     
     open var underlying: NetworkInterface? {
@@ -68,32 +68,32 @@ open class NetworkInterface {
         return SCNetworkInterfaceGetInterfaceType(self.interface)
     }
     
-    open var localizedDisplayName: CFString? {
-        return SCNetworkInterfaceGetLocalizedDisplayName(self.interface)
+    open var localizedDisplayName: String? {
+        return SCNetworkInterfaceGetLocalizedDisplayName(self.interface) as String?
     }
     
-    open var mediaOptions: (current: CFDictionary, active: CFDictionary, available: CFArray)? {
+    open var mediaOptions: (current: [CFString: CFPropertyList], active: [CFString: CFPropertyList], available: [CFString])? {
         var current:   Unmanaged<CFDictionary>?
         var active:    Unmanaged<CFDictionary>?
         var available: Unmanaged<CFArray     >?
         guard SCNetworkInterfaceCopyMediaOptions(self.interface, &current, &active, &available, true) else { return nil }
-        return (current:   current!  .takeRetainedValue(),
-                active:    active!   .takeRetainedValue(),
-                available: available!.takeRetainedValue())
+        return (current:   current!  .takeRetainedValue() as! [CFString: CFPropertyList],
+                active:    active!   .takeRetainedValue() as! [CFString: CFPropertyList],
+                available: available!.takeRetainedValue() as! [CFString])
     }
     
-    open var mediaSubTypes: CFArray? {
+    open var mediaSubTypes: [CFString]? {
         guard let available = self.mediaOptions?.available else { return nil }
-        return SCNetworkInterfaceCopyMediaSubTypes(available)
+        return SCNetworkInterfaceCopyMediaSubTypes(available as CFArray) as? [CFString]
     }
     
-    open func mediaOptions(subType: CFString) -> CFArray? {
+    open func mediaOptions(subType: CFString) -> [CFString]? {
         guard let available = self.mediaOptions?.available else { return nil }
-        return SCNetworkInterfaceCopyMediaSubTypeOptions(available, subType)
+        return SCNetworkInterfaceCopyMediaSubTypeOptions(available as CFArray, subType) as? [CFString]
     }
     
-    @discardableResult open func setMediaOptions(subType: CFString, options: CFArray) -> Bool {
-        return SCNetworkInterfaceSetMediaOptions(self.interface, subType, options)
+    @discardableResult open func setMediaOptions(subType: CFString, options: [CFString]) -> Bool {
+        return SCNetworkInterfaceSetMediaOptions(self.interface, subType, options as CFArray)
     }
     
     open var mtu: (mtu_cur: Int32, mtu_min: Int32, mtu_max: Int32)? {
