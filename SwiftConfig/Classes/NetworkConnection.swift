@@ -56,7 +56,7 @@ open class NetworkConnection {
     }
     
     open func start(userOptions: [CFString: CFPropertyList]?, linger: Bool) -> Bool {
-        return SCNetworkConnectionStart(self.conn, userOptions as CFDictionary, linger)
+        return SCNetworkConnectionStart(self.conn, userOptions as CFDictionary?, linger)
     }
     
     open func stop(forceDisconnect: Bool) -> Bool {
