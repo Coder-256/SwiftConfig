@@ -9,6 +9,7 @@ cache:
   - cocoapods
 podfile: Example/Podfile
 before_install:
+  - gem install bundler
   - bundle install
   - bundle exec pod install --project-directory=Example
 script:
