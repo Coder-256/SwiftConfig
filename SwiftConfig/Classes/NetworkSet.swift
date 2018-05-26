@@ -44,13 +44,12 @@ open class NetworkSet {
         return SCNetworkSetGetSetID(self.set)
     }
     
-    open var serviceOrder: [NetworkService]? {
+    open var serviceOrder: [CFString]? {
         get {
-            guard let arr = SCNetworkSetGetServiceOrder(self.set) as? [SCNetworkService] else { return nil }
-            return arr.map { NetworkService($0) }
+            return SCNetworkSetGetServiceOrder(self.set) as? [CFString]
         } set {
             if let newValue = newValue {
-                SCNetworkSetSetServiceOrder(self.set, newValue.map { $0.service } as CFArray)
+                SCNetworkSetSetServiceOrder(self.set, newValue)
             }
         }
     }
