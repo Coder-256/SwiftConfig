@@ -33,13 +33,13 @@ open class DynamicStore {
         self._store = store
     }
     
-    public init!(name: CFString) {
+    public init?(name: CFString) {
         var context = ConfigHelper<DynamicStore, SCDynamicStoreContext>.makeContext(self)
         guard let store = SCDynamicStoreCreate(nil, name, storeCallout(store:changedKeys:info:), &context) else { return nil }
         self._store = store
     }
     
-    public convenience init!(name: String) {
+    public convenience init?(name: String) {
         self.init(name: name as CFString)
     }
     

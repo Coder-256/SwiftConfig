@@ -37,6 +37,10 @@ open class ConfigPreferences {
         self._prefs = prefs
     }
     
+    public convenience init?(name: String, prefsID: CFString? = nil, authorization auth: AuthorizationRef? = nil) {
+        self.init(name: name as CFString, prefsID: prefsID, authorization: auth)
+    }
+    
     open func lock(wait: Bool) -> Bool {
         return SCPreferencesLock(self.prefs, wait)
     }
