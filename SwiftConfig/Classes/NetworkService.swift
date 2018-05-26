@@ -19,8 +19,9 @@ open class NetworkService {
         return SCNetworkServiceAddProtocolType(self.service, protocolType)
     }
     
-    open var protocols: CFArray? {
-        return SCNetworkServiceCopyProtocols(self.service)
+    open var protocols: [NetworkProtocol]? {
+        guard let arr = SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol] else { return nil }
+        return arr.map { NetworkProtocol($0) }
     }
     
     open func establishDefault() -> Bool {
@@ -48,8 +49,9 @@ open class NetworkService {
         }
     }
     
-    open func copyProtocol(protocolType: CFString) -> SCNetworkProtocol? {
-        return SCNetworkServiceCopyProtocol(self.service, protocolType)
+    open func copyProtocol(protocolType: CFString) -> NetworkProtocol? {
+        guard let result = SCNetworkServiceCopyProtocol(self.service, protocolType) else { return nil }
+        return NetworkProtocol(result)
     }
     
     open var serviceID: CFString? {
