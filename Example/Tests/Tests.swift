@@ -25,5 +25,10 @@ class Tests: XCTestCase {
         }
     }
     
+    func testComputerName() {
+        guard let computerName = DynamicStore(name: "SwiftConfig")?.computerInfo.name as String? else { XCTFail(); return }
+        print("Computer name: \(computerName)")
+    }
+    
 }
 
