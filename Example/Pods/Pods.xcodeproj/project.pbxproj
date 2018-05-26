@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B5FF8A5B5EFAEE60AAED0C408F170F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */; };
 		1E3E88EC0CE1B52B3D7860C98AEF14EB /* SwiftConfig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F6FE324ADC3CA2F12034661285EDAC /* SwiftConfig-dummy.m */; };
 		2BE7E690A8042512378F6BAF93810E8E /* NetworkSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9907D110B45F71809CD90BDB870510D8 /* NetworkSet.swift */; };
 		347D7B1F5B6A9A5B4557A19C051FB075 /* VLANNetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682F50B2FDBFFFDA3A5634F02239D0B3 /* VLANNetworkInterface.swift */; };
 		5309C1F535A8E8A389CD0F18149CC1C7 /* SwiftConfig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 01D26E5E4A6F38CE53809496BD17F21C /* SwiftConfig-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		604BB426806FFCEA0D610F8AAC04C3EC /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07039FADBEE24C583CD7753E1B576AD7 /* NetworkReachability.swift */; };
 		69ED9AFBFBA2D48FB0605C4F328A4B39 /* Pods-SwiftConfig_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D29E25856DE226AC075DBEC6386EF6B /* Pods-SwiftConfig_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		749F151F8BBD00F1B8A1341C67060A9E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */; };
 		C71BEFF9E22F517E7D1CBD7D03AAB0D1 /* DynamicStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B7937277816FBD534D3FEAAFFC60F6 /* DynamicStore.swift */; };
 		C7F10818C293DCDD97DDC39210FECD9D /* NetworkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281EBDDA99811A20B249F01870F34A7C /* NetworkConnection.swift */; };
 		D20759B8D05F07F437DA2668013E1E8E /* ConfigPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084C940F88EC764F32101B23D5B07A8 /* ConfigPreferences.swift */; };
@@ -76,7 +74,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				749F151F8BBD00F1B8A1341C67060A9E /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +81,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B5FF8A5B5EFAEE60AAED0C408F170F1 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
