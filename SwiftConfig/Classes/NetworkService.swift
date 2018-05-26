@@ -10,24 +10,24 @@ import Foundation
 import SystemConfiguration
 
 open class NetworkService {
-    let service: SCNetworkService
-    init(_ service: SCNetworkService) {
+    open let service: SCNetworkService
+    public init(_ service: SCNetworkService) {
         self.service = service
     }
     
-    @discardableResult func addProtocolType(_ protocolType: CFString) -> Bool {
+    @discardableResult open func addProtocolType(_ protocolType: CFString) -> Bool {
         return SCNetworkServiceAddProtocolType(self.service, protocolType)
     }
     
-    var protocols: CFArray? {
+    open var protocols: CFArray? {
         return SCNetworkServiceCopyProtocols(self.service)
     }
     
-    func establishDefault() -> Bool {
+    open func establishDefault() -> Bool {
         return SCNetworkServiceEstablishDefaultConfiguration(self.service)
     }
     
-    var enabled: Bool {
+    open var enabled: Bool {
         get {
             return SCNetworkServiceGetEnabled(self.service)
         } set {
@@ -35,12 +35,12 @@ open class NetworkService {
         }
     }
     
-    var interface: NetworkInterface? {
+    open var interface: NetworkInterface? {
         guard let interface = SCNetworkServiceGetInterface(self.service) else { return nil }
         return NetworkInterface(interface)
     }
     
-    var name: CFString? {
+    open var name: CFString? {
         get {
         return SCNetworkServiceGetName(self.service)
         } set {
@@ -48,19 +48,19 @@ open class NetworkService {
         }
     }
     
-    func copyProtocol(protocolType: CFString) -> SCNetworkProtocol? {
+    open func copyProtocol(protocolType: CFString) -> SCNetworkProtocol? {
         return SCNetworkServiceCopyProtocol(self.service, protocolType)
     }
     
-    var serviceID: CFString? {
+    open var serviceID: CFString? {
         return SCNetworkServiceGetServiceID(self.service)
     }
     
-    func remove() -> Bool {
+    open func remove() -> Bool {
         return SCNetworkServiceRemove(self.service)
     }
     
-    func remove(protocolType: CFString) -> Bool {
+    open func remove(protocolType: CFString) -> Bool {
         return SCNetworkServiceRemoveProtocolType(self.service, protocolType)
     }
 }

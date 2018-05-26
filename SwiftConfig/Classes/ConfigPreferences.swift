@@ -17,13 +17,13 @@ fileprivate func configCallout(prefs: SCPreferences, notificationType: SCPrefere
 
 open class ConfigPreferences {
     private var _prefs: SCPreferences? = nil
-    var prefs: SCPreferences { return self._prefs! }
-    var callout: ((SCPreferencesNotification) -> ())?
-    init(_ prefs: SCPreferences) {
+    open var prefs: SCPreferences { return self._prefs! }
+    open var callout: ((SCPreferencesNotification) -> ())?
+    public init(_ prefs: SCPreferences) {
         self._prefs = prefs
     }
     
-    init?(name: CFString, prefsID: CFString? = nil, authorization auth: AuthorizationRef? = nil) {
+    public init?(name: CFString, prefsID: CFString? = nil, authorization auth: AuthorizationRef? = nil) {
         let result: SCPreferences?
         if let auth = auth {
             result = SCPreferencesCreateWithAuthorization(nil, name, prefsID, auth)
@@ -37,23 +37,23 @@ open class ConfigPreferences {
         self._prefs = prefs
     }
     
-    func lock(wait: Bool) -> Bool {
+    open func lock(wait: Bool) -> Bool {
         return SCPreferencesLock(self.prefs, wait)
     }
     
-    func commitChanges() -> Bool {
+    open func commitChanges() -> Bool {
         return SCPreferencesCommitChanges(self.prefs)
     }
     
-    func applyChanges() -> Bool {
+    open func applyChanges() -> Bool {
         return SCPreferencesApplyChanges(self.prefs)
     }
     
-    @discardableResult func unlock() -> Bool {
+    @discardableResult open func unlock() -> Bool {
         return SCPreferencesUnlock(self.prefs)
     }
     
-    func withLock<T>(wait: Bool, block: () throws -> T) rethrows -> T? {
+    open func withLock<T>(wait: Bool, block: () throws -> T) rethrows -> T? {
         if self.lock(wait: wait) {
             let result = try block()
             self.unlock()
@@ -63,19 +63,19 @@ open class ConfigPreferences {
         }
     }
     
-    func synchronize() {
+    open func synchronize() {
         SCPreferencesSynchronize(self.prefs)
     }
     
-    var signature: CFData? {
+    open var signature: CFData? {
         return SCPreferencesGetSignature(self.prefs)
     }
     
-    var keys: CFArray? {
+    open var keys: CFArray? {
         return SCPreferencesCopyKeyList(self.prefs)
     }
     
-    subscript(_ key: CFString) -> CFPropertyList? {
+    open subscript(_ key: CFString) -> CFPropertyList? {
         get {
             return SCPreferencesGetValue(self.prefs, key)
         }
@@ -88,7 +88,7 @@ open class ConfigPreferences {
         }
     }
     
-    subscript(path path: CFString) -> CFDictionary? {
+    open subscript(path path: CFString) -> CFDictionary? {
         get {
             return SCPreferencesPathGetValue(self.prefs, path)
         }
@@ -101,86 +101,86 @@ open class ConfigPreferences {
         }
     }
     
-    func createUniqueChild(prefix: CFString) -> CFString? {
+    open func createUniqueChild(prefix: CFString) -> CFString? {
         return SCPreferencesPathCreateUniqueChild(self.prefs, prefix)
     }
     
-    func getLink(path: CFString) -> CFString? {
+    open func getLink(path: CFString) -> CFString? {
         return SCPreferencesPathGetLink(self.prefs, path)
     }
     
-    func setLink(path: CFString, link: CFString) -> Bool {
+    open func setLink(path: CFString, link: CFString) -> Bool {
         return SCPreferencesPathSetLink(self.prefs, path, link)
     }
     
-    func serviceCreate(interface: SCNetworkInterface) -> NetworkService? {
+    open func serviceCreate(interface: SCNetworkInterface) -> NetworkService? {
         guard let result = SCNetworkServiceCreate(self.prefs, interface) else { return nil }
         return NetworkService(result)
     }
     
-    func serviceCopy(serviceID: CFString) -> NetworkService? {
+    open func serviceCopy(serviceID: CFString) -> NetworkService? {
         guard let result = SCNetworkServiceCopy(self.prefs, serviceID) else { return nil }
         return NetworkService(result)
     }
     
-    func networkSetCreate() -> NetworkSet? {
+    open func networkSetCreate() -> NetworkSet? {
         guard let result = SCNetworkSetCreate(self.prefs) else { return nil }
         return NetworkSet(result)
     }
     
-    var networkSets: [NetworkSet]? {
+    open var networkSets: [NetworkSet]? {
         guard let arr = SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet] else { return nil }
         return arr.map { NetworkSet($0) }
     }
     
-    var currentNetworkSet: NetworkSet? {
+    open var currentNetworkSet: NetworkSet? {
         guard let result = SCNetworkSetCopyCurrent(self.prefs) else { return nil }
         return NetworkSet(result)
     }
     
-    func networkSet(setID: CFString) -> NetworkSet? {
+    open func networkSet(setID: CFString) -> NetworkSet? {
         guard let result = SCNetworkSetCopy(self.prefs, setID) else { return nil }
         return NetworkSet(result)
     }
     
-    func setComputerName(name: CFString?, nameEncoding: CFStringEncoding) -> Bool {
+    open func setComputerName(name: CFString?, nameEncoding: CFStringEncoding) -> Bool {
         return SCPreferencesSetComputerName(self.prefs, name, nameEncoding)
     }
     
-    func setLocalHostName(name: CFString?) -> Bool {
+    open func setLocalHostName(name: CFString?) -> Bool {
         return SCPreferencesSetLocalHostName(self.prefs, name)
     }
     
     // MARK: Bond
     
-    var bondInterfaces: [BondNetworkInterface]? {
+    open var bondInterfaces: [BondNetworkInterface]? {
         guard let arr = SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface] else { return nil }
         return arr.map { BondNetworkInterface($0) }
     }
     
-    var bondMemberInterfaces: [BondNetworkInterface]? {
+    open var bondMemberInterfaces: [BondNetworkInterface]? {
         guard let arr = SCBondInterfaceCopyAvailableMemberInterfaces(self.prefs) as? [SCBondInterface] else { return nil }
         return arr.map { BondNetworkInterface($0) }
     }
     
-    func bondCreate() -> BondNetworkInterface? {
+    open func bondCreate() -> BondNetworkInterface? {
         guard let result = SCBondInterfaceCreate(self.prefs) else { return nil }
         return BondNetworkInterface(result)
     }
     
     // MARK: VLAN
     
-    var vlanInterfaces: [VLANNetworkInterface]? {
+    open var vlanInterfaces: [VLANNetworkInterface]? {
         guard let arr = SCVLANInterfaceCopyAll(self.prefs) as? [SCVLANInterface] else { return nil }
         return arr.map { VLANNetworkInterface($0) }
     }
     
-    func vlanCreate(physical: VLANNetworkInterface, tag: CFNumber) -> VLANNetworkInterface? {
+    open func vlanCreate(physical: VLANNetworkInterface, tag: CFNumber) -> VLANNetworkInterface? {
         guard let result = SCVLANInterfaceCreate(self.prefs, physical.interface, tag) else { return nil }
         return VLANNetworkInterface(result)
     }
     
-    var services: [NetworkService]? {
+    open var services: [NetworkService]? {
         guard let result = SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService] else { return nil }
         return result.map { NetworkService($0) }
     }

@@ -17,19 +17,19 @@ fileprivate func connectionCallout(conn: SCNetworkConnection, status: SCNetworkC
 
 open class NetworkConnection {
     private var _conn: SCNetworkConnection?
-    var conn: SCNetworkConnection { return self._conn! }
-    var callout: ((SCNetworkConnectionStatus) -> ())?
-    init(_ conn: SCNetworkConnection) {
+    open var conn: SCNetworkConnection { return self._conn! }
+    open var callout: ((SCNetworkConnectionStatus) -> ())?
+    public init(_ conn: SCNetworkConnection) {
         self._conn = conn
     }
     
-    init?(serviceID: CFString) {
+    public init?(serviceID: CFString) {
         var context = ConfigHelper<NetworkConnection, SCNetworkConnectionContext>.makeContext(self)
         guard let conn = SCNetworkConnectionCreateWithServiceID(nil, serviceID, connectionCallout(conn:status:info:), &context) else { return nil }
         self._conn = conn
     }
     
-    var userPreferences: (serviceID: CFString, userOptions: CFDictionary)? {
+    open var userPreferences: (serviceID: CFString, userOptions: CFDictionary)? {
         var serviceID = Unmanaged<CFString>.passUnretained("" as CFString)
         var userOptions = Unmanaged<CFDictionary>.passUnretained([:] as CFDictionary)
 
@@ -38,31 +38,31 @@ open class NetworkConnection {
         return (serviceID: serviceID.takeRetainedValue(), userOptions: userOptions.takeRetainedValue())
     }
     
-    var serviceID: CFString? {
+    open var serviceID: CFString? {
         return SCNetworkConnectionCopyServiceID(self.conn)
     }
     
-    var status: SCNetworkConnectionStatus {
+    open var status: SCNetworkConnectionStatus {
         return SCNetworkConnectionGetStatus(self.conn)
     }
     
-    var extendedStatus: CFDictionary? {
+    open var extendedStatus: CFDictionary? {
         return SCNetworkConnectionCopyExtendedStatus(self.conn)
     }
     
-    var statistics: CFDictionary? {
+    open var statistics: CFDictionary? {
         return SCNetworkConnectionCopyStatistics(self.conn)
     }
     
-    func start(userOptions: CFDictionary?, linger: Bool) -> Bool {
+    open func start(userOptions: CFDictionary?, linger: Bool) -> Bool {
         return SCNetworkConnectionStart(self.conn, userOptions, linger)
     }
     
-    func stop(forceDisconnect: Bool) -> Bool {
+    open func stop(forceDisconnect: Bool) -> Bool {
         return SCNetworkConnectionStop(self.conn, forceDisconnect)
     }
     
-    var userOptions: CFDictionary? {
+    open var userOptions: CFDictionary? {
         return SCNetworkConnectionCopyUserOptions(self.conn)
     }
 }

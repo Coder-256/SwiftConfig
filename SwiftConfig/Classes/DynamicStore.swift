@@ -17,33 +17,33 @@ fileprivate func storeCallout(store: SCDynamicStore, changedKeys: CFArray, info:
 }
 
 open class DynamicStore {
-    typealias Key = CFString
-    typealias Value = CFPropertyList
+    public typealias Key = CFString
+    public typealias Value = CFPropertyList
     
     private(set) var _store: SCDynamicStore? = nil
-    var store: SCDynamicStore { return self._store! }
-    var callout: (([Key]) -> ())?
-    var notificationKeys: [Key] = [] {
+    open var store: SCDynamicStore { return self._store! }
+    open var callout: (([Key]) -> ())?
+    open var notificationKeys: [Key] = [] {
         didSet {
             SCDynamicStoreSetNotificationKeys(self.store, self.notificationKeys as CFArray, nil)
         }
     }
     
-    init(_ store: SCDynamicStore) {
+    public init(_ store: SCDynamicStore) {
         self._store = store
     }
     
-    init!(name: CFString) {
+    public init!(name: CFString) {
         var context = ConfigHelper<DynamicStore, SCDynamicStoreContext>.makeContext(self)
         guard let store = SCDynamicStoreCreate(nil, name, storeCallout(store:changedKeys:info:), &context) else { return nil }
         self._store = store
     }
     
-    convenience init!(name: String) {
+    public convenience init!(name: String) {
         self.init(name: name as CFString)
     }
     
-    subscript(_ key: Key) -> Value? {
+    open subscript(_ key: Key) -> Value? {
         get {
             return SCDynamicStoreCopyValue(self.store, key)
         }
@@ -56,13 +56,13 @@ open class DynamicStore {
         }
     }
     
-    var computerInfo: (name: CFString?, encoding: CFStringEncoding?) {
+    open var computerInfo: (name: CFString?, encoding: CFStringEncoding?) {
         var encoding: CFStringEncoding = 0
         let name = SCDynamicStoreCopyComputerName(self.store, &encoding)
         return (name: name, encoding: encoding)
     }
     
-    var consoleUser: (uid: uid_t?, gid: gid_t?, info: CFString?) {
+    open var consoleUser: (uid: uid_t?, gid: gid_t?, info: CFString?) {
         var uid: uid_t = 0
         var gid: gid_t = 0
         let info = SCDynamicStoreCopyConsoleUser(store, &uid, &gid)
@@ -70,81 +70,81 @@ open class DynamicStore {
         return (uid: uid, gid: gid, info: info)
     }
     
-    var localHostName: CFString? {
+    open var localHostName: CFString? {
         return SCDynamicStoreCopyLocalHostName(store)
     }
     
-    var currentLocationIdentifier: CFString? {
+    open var currentLocationIdentifier: CFString? {
         return SCDynamicStoreCopyLocalHostName(store)
     }
     
-    var proxies: CFDictionary? {
+    open var proxies: CFDictionary? {
         return SCDynamicStoreCopyProxies(store)
     }
     
-    func key(domain: CFString, globalEntity: CFString) -> Key {
+    open func key(domain: CFString, globalEntity: CFString) -> Key {
         return SCDynamicStoreKeyCreateNetworkGlobalEntity(nil, domain, globalEntity)
     }
     
-    func keyInterface(domain: CFString) -> Key {
+    open func keyInterface(domain: CFString) -> Key {
         return SCDynamicStoreKeyCreateNetworkInterface(nil, domain)
     }
     
-    func key(domain: CFString, ifname: CFString, entity: CFString) -> Key {
+    open func key(domain: CFString, ifname: CFString, entity: CFString) -> Key {
         return SCDynamicStoreKeyCreateNetworkInterfaceEntity(nil, domain, ifname, entity)
     }
     
-    func key(domain: CFString, serviceID: CFString, entity: CFString) -> Key {
+    open func key(domain: CFString, serviceID: CFString, entity: CFString) -> Key {
         return SCDynamicStoreKeyCreateNetworkServiceEntity(nil, domain, serviceID, entity)
     }
     
-    var keyComputerName: Key {
+    open var keyComputerName: Key {
         return SCDynamicStoreKeyCreateComputerName(nil)
     }
     
-    var keyConsoleUser: Key {
+    open var keyConsoleUser: Key {
         return SCDynamicStoreKeyCreateConsoleUser(nil)
     }
     
-    var keyHostNames: Key {
+    open var keyHostNames: Key {
         return SCDynamicStoreKeyCreateHostNames(nil)
     }
     
-    var keyLocation: Key {
+    open var keyLocation: Key {
         return SCDynamicStoreKeyCreateLocation(nil)
     }
     
-    var keyProxies: Key {
+    open var keyProxies: Key {
         return SCDynamicStoreKeyCreateProxies(nil)
     }
     
     // MARK: DHCP
     
-    class DHCPInfo {
-        let info: CFDictionary
-        init(_ info: CFDictionary) {
+    open class DHCPInfo {
+        open let info: CFDictionary
+        public init(_ info: CFDictionary) {
             self.info = info
         }
         
-        func getOptionData(code: UInt8) -> CFData? {
+        open func getOptionData(code: UInt8) -> CFData? {
             return DHCPInfoGetOptionData(self.info, code)
         }
         
-        var leaseStart: CFDate? {
+        open var leaseStart: CFDate? {
             return DHCPInfoGetLeaseStartTime(self.info)
         }
         
-        var leaseExpiration: CFDate? {
+        open var leaseExpiration: CFDate? {
             return DHCPInfoGetLeaseExpirationTime(self.info)
         }
     }
     
-    var dhcpInfo: DHCPInfo? {
+    open var dhcpInfo: DHCPInfo? {
         guard let info = SCDynamicStoreCopyDHCPInfo(self.store, nil) else { return nil }
         return DHCPInfo(info)
     }
     
-    func dhcpInfo(serviceID: CFString) -> DHCPInfo? {
+    open func dhcpInfo(serviceID: CFString) -> DHCPInfo? {
         guard let info = SCDynamicStoreCopyDHCPInfo(self.store, serviceID) else { return nil }
         return DHCPInfo(info)
     }

@@ -11,31 +11,31 @@ import SystemConfiguration
 
 open class BondNetworkInterface: NetworkInterface {
     open class Status {
-        let status: SCBondStatus
-        init(_ status: SCBondStatus) {
+        open let status: SCBondStatus
+        public init(_ status: SCBondStatus) {
             self.status = status
         }
         
-        func interfaceStatus(_ interface: SCBondInterface? = nil) -> CFDictionary? {
+        open func interfaceStatus(_ interface: SCBondInterface? = nil) -> CFDictionary? {
             return SCBondStatusGetInterfaceStatus(self.status, interface)
         }
         
-        var memberInterfaces: [BondNetworkInterface]? {
+        open var memberInterfaces: [BondNetworkInterface]? {
             guard let arr = SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface] else { return nil }
             return arr.map { BondNetworkInterface($0) }
         }
     }
     
-    func remove() -> Bool {
+    open func remove() -> Bool {
         return SCBondInterfaceRemove(self.interface)
     }
     
-    var status: Status? {
+    open var status: Status? {
         guard let status = SCBondInterfaceCopyStatus(self.interface) else { return nil }
         return Status(status)
     }
     
-    var memberInterfaces: [BondNetworkInterface]? {
+    open var memberInterfaces: [BondNetworkInterface]? {
         get {
             return SCBondInterfaceGetMemberInterfaces(self.interface) as? [BondNetworkInterface]
         } set {
@@ -43,7 +43,7 @@ open class BondNetworkInterface: NetworkInterface {
         }
     }
     
-    var options: CFDictionary? {
+    open var options: CFDictionary? {
         get {
             return SCBondInterfaceGetOptions(self.interface)
         } set {
@@ -51,7 +51,7 @@ open class BondNetworkInterface: NetworkInterface {
         }
     }
     
-    func setLocalizedDisplayName(_ name: CFString) {
+    open func setLocalizedDisplayName(_ name: CFString) {
         SCBondInterfaceSetLocalizedDisplayName(self.interface, name)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-internal protocol ConfigContext {
+protocol ConfigContext {
     init(version: CFIndex, info: UnsafeMutableRawPointer?, retain: (@convention(c) (UnsafeRawPointer) -> UnsafeRawPointer)?, release: (@convention(c) (UnsafeRawPointer) -> Swift.Void)?, copyDescription: (@convention(c) (UnsafeRawPointer) -> Unmanaged<CFString>)?)
 }
 
@@ -18,7 +18,7 @@ extension SCPreferencesContext: ConfigContext {}
 extension SCNetworkConnectionContext: ConfigContext {}
 extension SCNetworkReachabilityContext: ConfigContext {}
 
-internal class ConfigHelper<Class: AnyObject, Context: ConfigContext> {
+class ConfigHelper<Class: AnyObject, Context: ConfigContext> {
     static func makeContext(_ instance: Class) -> Context {
         let info = UnsafeMutableRawPointer(Unmanaged.passRetained(instance).toOpaque())
         return Context(version: 0, info: info, retain: nil, release: nil, copyDescription: nil)

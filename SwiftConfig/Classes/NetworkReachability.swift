@@ -17,20 +17,20 @@ fileprivate func reachabilityCallout(target: SCNetworkReachability, flags: SCNet
 
 open class NetworkReachability {
     private var _target: SCNetworkReachability?
-    var target: SCNetworkReachability { return self._target! }
-    var callout: ((SCNetworkReachabilityFlags) -> ())?
+    open var target: SCNetworkReachability { return self._target! }
+    open var callout: ((SCNetworkReachabilityFlags) -> ())?
     
     @discardableResult private func setupCallout() -> Bool {
         var context = ConfigHelper<NetworkReachability, SCNetworkReachabilityContext>.makeContext(self)
         return SCNetworkReachabilitySetCallback(self.target, reachabilityCallout(target:flags:info:), &context)
     }
     
-    init(_ target: SCNetworkReachability) {
+    public init(_ target: SCNetworkReachability) {
         self._target = target
         setupCallout()
     }
     
-    init?(address: sockaddr) {
+    public init?(address: sockaddr) {
         var addrCopy = address
         guard let result = SCNetworkReachabilityCreateWithAddress(nil, &addrCopy) else { return nil }
         self._target = result
@@ -38,7 +38,7 @@ open class NetworkReachability {
     }
     
     // If there's a better way to do this, let me know!
-    init?(localAddress: sockaddr?, remoteAddress: sockaddr?) {
+    public init?(localAddress: sockaddr?, remoteAddress: sockaddr?) {
         let result: SCNetworkReachability?
         if var localCopy = localAddress {
             if var remoteCopy = remoteAddress {
@@ -59,13 +59,13 @@ open class NetworkReachability {
         setupCallout()
     }
     
-    init?(nodeName: String) {
+    public init?(nodeName: String) {
         guard let result = SCNetworkReachabilityCreateWithName(nil, nodeName) else { return nil }
         self._target = result
         setupCallout()
     }
     
-    var flags: SCNetworkReachabilityFlags? {
+    open var flags: SCNetworkReachabilityFlags? {
         var flags = SCNetworkReachabilityFlags()
         guard SCNetworkReachabilityGetFlags(self.target, &flags) else { return nil }
         return flags
