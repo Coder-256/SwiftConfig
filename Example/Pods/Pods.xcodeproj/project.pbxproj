@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,7 +39,7 @@
 		01D26E5E4A6F38CE53809496BD17F21C /* SwiftConfig-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftConfig-umbrella.h"; sourceTree = "<group>"; };
 		0493C9BB2BC83FEFDAD2CCBA3CC42946 /* Pods-SwiftConfig_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftConfig_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		07039FADBEE24C583CD7753E1B576AD7 /* NetworkReachability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachability.swift; path = SwiftConfig/Classes/NetworkReachability.swift; sourceTree = "<group>"; };
-		0F7455B957B14709185D626EB0B40F85 /* SwiftConfig.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = SwiftConfig.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		0F7455B957B14709185D626EB0B40F85 /* SwiftConfig.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = SwiftConfig.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		10877B48DE7689EDEC5B3095C15ED1ED /* Pods-SwiftConfig_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SwiftConfig_Tests-dummy.m"; sourceTree = "<group>"; };
 		18080CAC1949617BED6B8BBAEA450523 /* BondNetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BondNetworkInterface.swift; path = SwiftConfig/Classes/BondNetworkInterface.swift; sourceTree = "<group>"; };
 		1CE33D8A39767478386A03AFC4640240 /* SwiftConfig-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftConfig-prefix.pch"; sourceTree = "<group>"; };
@@ -49,21 +49,21 @@
 		5ACFB9FE10701503528FC50944C96D89 /* Pods-SwiftConfig_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftConfig_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		5CD6D4372DF08E3CA7D975D2CACE638F /* SwiftConfig.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftConfig.xcconfig; sourceTree = "<group>"; };
 		682F50B2FDBFFFDA3A5634F02239D0B3 /* VLANNetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VLANNetworkInterface.swift; path = SwiftConfig/Classes/VLANNetworkInterface.swift; sourceTree = "<group>"; };
-		6DDE74367ECCED0978CFDAD2E5322015 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		6DDE74367ECCED0978CFDAD2E5322015 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7D29E25856DE226AC075DBEC6386EF6B /* Pods-SwiftConfig_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftConfig_Tests-umbrella.h"; sourceTree = "<group>"; };
 		7DD852B61534645222DC243A62569D44 /* NetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkInterface.swift; path = SwiftConfig/Classes/NetworkInterface.swift; sourceTree = "<group>"; };
 		8084C940F88EC764F32101B23D5B07A8 /* ConfigPreferences.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigPreferences.swift; path = SwiftConfig/Classes/ConfigPreferences.swift; sourceTree = "<group>"; };
 		84AFF3BDC3A22B709C67B1A8B5E58ADA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B01C38222084067CD0E0F7EBF382302 /* SwiftConfig.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftConfig.modulemap; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		95BF59BFE98200E45D37B6261FFF2E4B /* Pods_SwiftConfig_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SwiftConfig_Tests.framework; path = "Pods-SwiftConfig_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		95BF59BFE98200E45D37B6261FFF2E4B /* Pods_SwiftConfig_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftConfig_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97B7937277816FBD534D3FEAAFFC60F6 /* DynamicStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DynamicStore.swift; path = SwiftConfig/Classes/DynamicStore.swift; sourceTree = "<group>"; };
 		9907D110B45F71809CD90BDB870510D8 /* NetworkSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkSet.swift; path = SwiftConfig/Classes/NetworkSet.swift; sourceTree = "<group>"; };
 		99816A53BA87A83E9B5B5921F6666FBD /* Pods-SwiftConfig_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SwiftConfig_Tests.modulemap"; sourceTree = "<group>"; };
 		99ACF7C14C6405F6A68740AC9E395C76 /* NetworkService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkService.swift; path = SwiftConfig/Classes/NetworkService.swift; sourceTree = "<group>"; };
 		AA1764FAA7D3ACC130766DCB1AB30E49 /* Pods-SwiftConfig_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SwiftConfig_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		AC54BD0CB00C158EE43AD81F9A206907 /* SwiftConfig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftConfig.framework; path = SwiftConfig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA79D1D69009707BB4E48395F11C03F0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		AC54BD0CB00C158EE43AD81F9A206907 /* SwiftConfig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftConfig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA79D1D69009707BB4E48395F11C03F0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DBEA81D334FFE12A306C364FF7CD48D2 /* Pods-SwiftConfig_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftConfig_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		DFE7F44522812C854135CFFBD187ABAF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -347,11 +347,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftConfig/SwiftConfig-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftConfig/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/SwiftConfig/SwiftConfig.modulemap";
 				PRODUCT_MODULE_NAME = SwiftConfig;
@@ -385,11 +381,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Target Support Files/Pods-SwiftConfig_Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/Pods-SwiftConfig_Tests/Pods-SwiftConfig_Tests.modulemap";
@@ -426,11 +418,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftConfig/SwiftConfig-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftConfig/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/SwiftConfig/SwiftConfig.modulemap";
 				PRODUCT_MODULE_NAME = SwiftConfig;
@@ -464,11 +452,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Target Support Files/Pods-SwiftConfig_Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MODULEMAP_FILE = "Target Support Files/Pods-SwiftConfig_Tests/Pods-SwiftConfig_Tests.modulemap";
@@ -602,6 +586,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
