@@ -49,7 +49,7 @@ open class NetworkSet {
             return SCNetworkSetGetServiceOrder(self.set) as? [CFString]
         } set {
             if let newValue = newValue {
-                SCNetworkSetSetServiceOrder(self.set, newValue)
+                SCNetworkSetSetServiceOrder(self.set, newValue as CFArray)
             }
         }
     }
