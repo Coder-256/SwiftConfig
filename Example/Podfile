@@ -1,0 +1,6 @@
+use_frameworks!
+target 'SwiftConfig_Tests' do
+  pod 'SwiftConfig', :path => '../'
+  
+  
+end
