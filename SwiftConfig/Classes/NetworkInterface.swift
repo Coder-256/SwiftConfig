@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-class NetworkInterface {
+open class NetworkInterface {
     let interface: SCNetworkInterface
     init(_ interface: SCNetworkInterface) {
         self.interface = interface

@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-class VLANNetworkInterface: NetworkInterface {
+open class VLANNetworkInterface: NetworkInterface {
     static var physicalInterfaces: [VLANNetworkInterface]? {
         guard let arr = SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCVLANInterface] else { return nil }
         return arr.map { VLANNetworkInterface($0) }

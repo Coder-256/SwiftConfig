@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-class NetworkSet {
+open class NetworkSet {
     let set: SCNetworkSet
     init(_ set: SCNetworkSet) {
         self.set = set

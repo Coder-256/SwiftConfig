@@ -16,7 +16,7 @@ fileprivate func storeCallout(store: SCDynamicStore, changedKeys: CFArray, info:
     }
 }
 
-class DynamicStore {
+open class DynamicStore {
     typealias Key = CFString
     typealias Value = CFPropertyList
     

@@ -15,7 +15,7 @@ fileprivate func configCallout(prefs: SCPreferences, notificationType: SCPrefere
     }
 }
 
-class ConfigPreferences {
+open class ConfigPreferences {
     private var _prefs: SCPreferences? = nil
     var prefs: SCPreferences { return self._prefs! }
     var callout: ((SCPreferencesNotification) -> ())?

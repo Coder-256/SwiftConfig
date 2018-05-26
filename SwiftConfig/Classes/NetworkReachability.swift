@@ -15,7 +15,7 @@ fileprivate func reachabilityCallout(target: SCNetworkReachability, flags: SCNet
     }
 }
 
-class NetworkReachability {
+open class NetworkReachability {
     private var _target: SCNetworkReachability?
     var target: SCNetworkReachability { return self._target! }
     var callout: ((SCNetworkReachabilityFlags) -> ())?

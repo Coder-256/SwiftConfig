@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-class NetworkService {
+open class NetworkService {
     let service: SCNetworkService
     init(_ service: SCNetworkService) {
         self.service = service

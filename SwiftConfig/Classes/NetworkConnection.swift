@@ -15,7 +15,7 @@ fileprivate func connectionCallout(conn: SCNetworkConnection, status: SCNetworkC
     }
 }
 
-class NetworkConnection {
+open class NetworkConnection {
     private var _conn: SCNetworkConnection?
     var conn: SCNetworkConnection { return self._conn! }
     var callout: ((SCNetworkConnectionStatus) -> ())?

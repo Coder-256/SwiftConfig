@@ -9,8 +9,8 @@
 import Foundation
 import SystemConfiguration
 
-class BondNetworkInterface: NetworkInterface {
-    class Status {
+open class BondNetworkInterface: NetworkInterface {
+    open class Status {
         let status: SCBondStatus
         init(_ status: SCBondStatus) {
             self.status = status

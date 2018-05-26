@@ -18,7 +18,7 @@ extension SCPreferencesContext: ConfigContext {}
 extension SCNetworkConnectionContext: ConfigContext {}
 extension SCNetworkReachabilityContext: ConfigContext {}
 
-class ConfigHelper<Class: AnyObject, Context: ConfigContext> {
+internal class ConfigHelper<Class: AnyObject, Context: ConfigContext> {
     static func makeContext(_ instance: Class) -> Context {
         let info = UnsafeMutableRawPointer(Unmanaged.passRetained(instance).toOpaque())
         return Context(version: 0, info: info, retain: nil, release: nil, copyDescription: nil)
