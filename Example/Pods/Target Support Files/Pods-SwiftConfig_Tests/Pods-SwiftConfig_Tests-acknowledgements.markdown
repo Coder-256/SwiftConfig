@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## SwiftConfig
 
-Copyright (c) 2018 Coder-256 <jacob@jacobgreenfield.me>
+Copyright (c) 2018 Jacob Greenfield <jacob@jacobgreenfield.me>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
