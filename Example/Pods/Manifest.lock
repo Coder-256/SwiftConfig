@@ -1,5 +1,5 @@
 PODS:
-  - SwiftConfig (1.0.4)
+  - SwiftConfig (1.0.5)
 
 DEPENDENCIES:
   - SwiftConfig (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SwiftConfig: b0a7e20375799044e74f9cb71715d2e7d23983b6
+  SwiftConfig: b053b5716fabefad5534b6bb68b027c9c5cf5c9b
 
 PODFILE CHECKSUM: dbfd3de35d8fe10fd211e499f2294079d2a18226
 
