@@ -22,7 +22,7 @@ pod 'SwiftConfig'
 
 ## Author
 
-Coder-256, jacob@jacobgreenfield.me
+Jacob Greenfield, jacob@jacobgreenfield.me
 
 ## License
 

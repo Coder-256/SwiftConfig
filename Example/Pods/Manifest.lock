@@ -1,0 +1,16 @@
+PODS:
+  - SwiftConfig (0.1.0)
+
+DEPENDENCIES:
+  - SwiftConfig (from `../`)
+
+EXTERNAL SOURCES:
+  SwiftConfig:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SwiftConfig: 476cab80ace3d67ac8c6831149e81ab283b4e5e2
+
+PODFILE CHECKSUM: 4d51cb9dad2c17b196fc051fceb0802d151dd598
+
+COCOAPODS: 1.5.3
