@@ -4,11 +4,13 @@
 
 osx_image: xcode9.3
 language: objective-c
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-# - gem install cocoapods # Since Travis is not always on latest version
-# - pod install --project-directory=Example
+cache:
+  - bundler
+  - cocoapods
+podfile: Example/Podfile
+before_install:
+  - bundle install cocoapods
+  - bundle exec pod install --project-directory=Example
 script:
-- set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/SwiftConfig.xcworkspace -scheme SwiftConfig-Example | xcpretty
-- bundle exec pod lib lint
+  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/SwiftConfig.xcworkspace -scheme SwiftConfig-Example | xcpretty
+  - bundle exec pod lib lint
