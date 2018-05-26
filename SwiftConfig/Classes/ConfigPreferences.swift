@@ -36,8 +36,8 @@ open class ConfigPreferences {
         guard let prefs = result else { return nil }
         
         var context = ConfigHelper<ConfigPreferences, SCPreferencesContext>.makeContext(self)
-        SCPreferencesSetCallback(self.prefs, configCallout(prefs:notificationType:info:), &context)
         self._prefs = prefs
+        SCPreferencesSetCallback(self.prefs, configCallout(prefs:notificationType:info:), &context)
     }
     
     public convenience init?(name: String, prefsID: CFString? = nil, authorization auth: AuthorizationRef? = nil) {
