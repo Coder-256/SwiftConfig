@@ -118,4 +118,9 @@ open class NetworkInterface {
     open func forceConfigurationRefresh() -> Bool {
         return SCNetworkInterfaceForceConfigurationRefresh(interface)
     }
+    
+    open var active: Bool {
+        guard let bsdName = self.bsdName else { return false }
+        return _swiftconfig_check_active(bsdName)
+    }
 }

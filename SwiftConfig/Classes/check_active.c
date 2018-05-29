@@ -8,7 +8,7 @@
 
 #include "check_active.h"
 
-bool check_active(const char *interface) {
+bool _swiftconfig_check_active(const char *interface) {
     // Credit: https://opensource.apple.com/source/network_cmds/network_cmds-543/ifconfig.tproj/ifmedia.c.auto.html
     int s;
     if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)

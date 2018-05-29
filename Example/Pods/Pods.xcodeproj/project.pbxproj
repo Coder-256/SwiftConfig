@@ -18,10 +18,10 @@
 		710EB5425E41E071BB94AEEF2F4D362B /* ConfigContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C342F274F4759347C17C45C700DEA58D /* ConfigContext.swift */; };
 		862F8A82EC09FE3BC48B3D304D50F4F2 /* SwiftConfig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BC97725929791BB89A3D49CA5D8CA03 /* SwiftConfig-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C1E9F324E25659FC8A53CCD92D63382 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AFCFD47AEF74DD2F640E88BE917BD1 /* NetworkProtocol.swift */; };
-		8C484DD116FD7D12DE8EA3AEE2ACAEB2 /* check_active.h in Headers */ = {isa = PBXBuildFile; fileRef = 2719D720D6D6BF61B4B3CA2F366E51CC /* check_active.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		AD2F13AFB323DBFDA3B14A6BE37BDEDB /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363DE9F0664120BF39A7FADF7387F6C9 /* NetworkReachability.swift */; };
 		AEDEF5627D28436546049273933BCCDA /* SwiftConfig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F395244B1A5A1EBD45AA23302BB816 /* SwiftConfig-dummy.m */; };
 		BB29CFEB5F5F238DB670BC91FA683AD7 /* check_active.c in Sources */ = {isa = PBXBuildFile; fileRef = 52939101A69DFA65A086ADBA18A5C19A /* check_active.c */; };
+		BBBE6769915CEDE25A6A98131D65D224 /* check_active.h in Headers */ = {isa = PBXBuildFile; fileRef = 2719D720D6D6BF61B4B3CA2F366E51CC /* check_active.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D7E5B30DEA61DA2DD843985309A7E748 /* VLANNetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B54510AEE4501AA8207CC744C332E2 /* VLANNetworkInterface.swift */; };
 		DE6959AF99C17414A60889F80037ACB2 /* Pods-SwiftConfig_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C72BF79C6B275412E1B04E436D2F636 /* Pods-SwiftConfig_Tests-dummy.m */; };
 /* End PBXBuildFile section */
@@ -217,7 +217,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C484DD116FD7D12DE8EA3AEE2ACAEB2 /* check_active.h in Headers */,
+				BBBE6769915CEDE25A6A98131D65D224 /* check_active.h in Headers */,
 				862F8A82EC09FE3BC48B3D304D50F4F2 /* SwiftConfig-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

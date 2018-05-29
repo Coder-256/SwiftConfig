@@ -18,6 +18,6 @@
 #include <sys/ioctl.h>
 #include <sys/sockio.h>
 
-bool check_active(const char *interface);
+bool _swiftconfig_check_active(const char *interface);
 
 #endif /* check_active_h */

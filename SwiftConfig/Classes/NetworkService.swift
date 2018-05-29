@@ -35,11 +35,6 @@ open class NetworkService {
         }
     }
     
-    open var active: Bool {
-        guard let bsdName = self.interface?.bsdName else { return false }
-        return check_active(bsdName)
-    }
-    
     open var interface: NetworkInterface? {
         guard let interface = SCNetworkServiceGetInterface(self.service) else { return nil }
         return NetworkInterface(interface)
