@@ -136,8 +136,7 @@ open class ConfigPreferences {
     }
     
     open var networkSets: [NetworkSet]? {
-        guard let arr = SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet] else { return nil }
-        return arr.map { NetworkSet($0) }
+        return (SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet])?.map { NetworkSet($0) }
     }
     
     open var currentNetworkSet: NetworkSet? {
@@ -169,13 +168,11 @@ open class ConfigPreferences {
     // MARK: Bond
     
     open var bondInterfaces: [BondNetworkInterface]? {
-        guard let arr = SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface] else { return nil }
-        return arr.map { BondNetworkInterface($0) }
+        return (SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
     }
     
     open var bondMemberInterfaces: [BondNetworkInterface]? {
-        guard let arr = SCBondInterfaceCopyAvailableMemberInterfaces(self.prefs) as? [SCBondInterface] else { return nil }
-        return arr.map { BondNetworkInterface($0) }
+        return (SCBondInterfaceCopyAvailableMemberInterfaces(self.prefs) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
     }
     
     open func bondCreate() -> BondNetworkInterface? {
@@ -186,8 +183,7 @@ open class ConfigPreferences {
     // MARK: VLAN
     
     open var vlanInterfaces: [VLANNetworkInterface]? {
-        guard let arr = SCVLANInterfaceCopyAll(self.prefs) as? [SCVLANInterface] else { return nil }
-        return arr.map { VLANNetworkInterface($0) }
+        return (SCVLANInterfaceCopyAll(self.prefs) as? [SCVLANInterface])?.map { VLANNetworkInterface($0) }
     }
     
     open func vlanCreate(physical: VLANNetworkInterface, tag: CFNumber) -> VLANNetworkInterface? {
@@ -196,7 +192,6 @@ open class ConfigPreferences {
     }
     
     open var services: [NetworkService]? {
-        guard let result = SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService] else { return nil }
-        return result.map { NetworkService($0) }
+        return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.map { NetworkService($0) }
     }
 }

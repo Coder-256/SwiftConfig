@@ -18,8 +18,7 @@ open class NetworkInterface {
     // MARK: Interface configuration
     
     open static var all: [NetworkInterface]? {
-        guard let arr = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] else { return nil }
-        return arr.map { NetworkInterface($0) }
+        return (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])?.map { NetworkInterface($0) }
     }
     
     open var supportedInterfaceTypes: [CFString]? {

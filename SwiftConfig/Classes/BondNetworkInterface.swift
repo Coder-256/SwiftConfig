@@ -21,8 +21,7 @@ open class BondNetworkInterface: NetworkInterface {
         }
         
         open var memberInterfaces: [BondNetworkInterface]? {
-            guard let arr = SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface] else { return nil }
-            return arr.map { BondNetworkInterface($0) }
+            return (SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
         }
     }
     

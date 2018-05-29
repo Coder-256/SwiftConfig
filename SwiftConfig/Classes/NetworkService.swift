@@ -20,8 +20,7 @@ open class NetworkService {
     }
     
     open var protocols: [NetworkProtocol]? {
-        guard let arr = SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol] else { return nil }
-        return arr.map { NetworkProtocol($0) }
+        return (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])?.map { NetworkProtocol($0) }
     }
     
     open func establishDefault() -> Bool {
