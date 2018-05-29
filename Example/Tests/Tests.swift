@@ -26,8 +26,24 @@ class Tests: XCTestCase {
     }
     
     func testComputerName() {
-        guard let computerName = DynamicStore(name: "SwiftConfig")?.computerInfo.name as String? else { XCTFail(); return }
-        print("Computer name: \(computerName)")
+        if let computerName = DynamicStore(name: "SwiftConfig")?.computerInfo.name as String? {
+            print("Computer name: \(computerName)")
+            return
+        }
+        XCTFail()
+    }
+    
+    func testActiveServices() {
+        if let firstActive = ConfigPreferences(name: "SwiftConfig")?
+            .currentNetworkSet?
+            .services?
+            .filter({ $0.enabled && $0.active })
+            .first?
+            .name {
+            print("First active service: \(firstActive)")
+            return
+        }
+        XCTFail()
     }
     
 }

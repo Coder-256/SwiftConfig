@@ -19,5 +19,6 @@
     "osx": "10.12"
   },
   "swift_version": "4.1",
-  "source_files": "SwiftConfig/Classes/**/*"
+  "source_files": "SwiftConfig/Classes/**/*",
+  "private_header_files": "SwiftConfig/Classes/**/*"
 }

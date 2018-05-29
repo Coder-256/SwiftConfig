@@ -28,8 +28,15 @@ open class NetworkSet {
     }
     
     open var services: [NetworkService]? {
-        guard let arr = SCNetworkSetCopyServices(self.set) as? [SCNetworkService] else { return nil }
-        return arr.map { NetworkService($0) }
+        guard let arr = (SCNetworkSetCopyServices(self.set) as? [SCNetworkService])?.map({ NetworkService($0) }) else { return nil }
+        guard let order = self.serviceOrder else { return arr }
+        return arr.sorted {
+            guard let a = $0.serviceID,
+                let b = $1.serviceID,
+                let aIndex = order.index(of: a),
+                let bIndex = order.index(of: b) else { return false }
+            return aIndex < bIndex
+        }
     }
     
     open var name: String? {

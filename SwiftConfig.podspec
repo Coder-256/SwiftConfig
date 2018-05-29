@@ -33,6 +33,7 @@ Pod::Spec.new do |s|
   s.swift_version = '4.1'
 
   s.source_files = 'SwiftConfig/Classes/**/*'
+  s.private_header_files = 'SwiftConfig/Classes/**/*'
 
   # s.resource_bundles = {
   #   'SwiftConfig' => ['SwiftConfig/Assets/*.png']
