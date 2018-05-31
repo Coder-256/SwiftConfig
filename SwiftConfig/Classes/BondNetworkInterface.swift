@@ -20,8 +20,8 @@ open class BondNetworkInterface: NetworkInterface {
             return SCBondStatusGetInterfaceStatus(self.status, interface)
         }
         
-        open var memberInterfaces: [BondNetworkInterface]? {
-            return (SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
+        open var memberInterfaces: [NetworkInterface]? {
+            return (SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface])?.map { NetworkInterface($0) }
         }
     }
     
@@ -34,11 +34,11 @@ open class BondNetworkInterface: NetworkInterface {
         return Status(status)
     }
     
-    open var memberInterfaces: [BondNetworkInterface]? {
+    open var memberInterfaces: [NetworkInterface]? {
         get {
-            return SCBondInterfaceGetMemberInterfaces(self.interface) as? [BondNetworkInterface]
+            return (SCBondInterfaceGetMemberInterfaces(self.interface) as? [SCNetworkInterface])?.map { NetworkInterface($0) }
         } set {
-            SCBondInterfaceSetMemberInterfaces(self.interface, (newValue ?? []) as CFArray)
+            SCBondInterfaceSetMemberInterfaces(self.interface, (newValue ?? []).map { $0.interface } as CFArray)
         }
     }
     

@@ -10,18 +10,18 @@ import Foundation
 import SystemConfiguration
 
 open class VLANNetworkInterface: NetworkInterface {
-    static var physicalInterfaces: [VLANNetworkInterface]? {
-        return (SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCVLANInterface])?.map { VLANNetworkInterface($0) }
+    static var availablePhysicalInterfaces: [NetworkInterface]? {
+        return (SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCNetworkInterface])?.map { NetworkInterface($0) }
     }
     
     func remove() {
         SCVLANInterfaceRemove(self.interface)
     }
     
-    var physical: VLANNetworkInterface? {
+    var physical: NetworkInterface? {
         get {
             guard let result = SCVLANInterfaceGetPhysicalInterface(self.interface) else { return nil }
-            return VLANNetworkInterface(result)
+            return NetworkInterface(result)
         } set {
             if let newValue = newValue, let tag = SCVLANInterfaceGetTag(self.interface) {
                 SCVLANInterfaceSetPhysicalInterfaceAndTag(self.interface, newValue.interface, tag)
