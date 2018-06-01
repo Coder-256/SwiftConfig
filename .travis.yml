@@ -13,6 +13,8 @@ language: objective-c
 #   - bundle install
 #   - bundle exec pod install --project-directory=Example
 script:
-  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/SwiftConfig.xcworkspace -scheme SwiftConfig-Example | xcpretty
+  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/SwiftConfig.xcworkspace -scheme SwiftConfig-Example | tee xcode.log | xcpretty
   - pod lib lint
 #   - bundle exec pod lib lint
+after_failure:
+  - cat xcode.log
