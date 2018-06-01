@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkService {
+open class NetworkService: Hashable, Equatable {
     open let service: SCNetworkService
     public init(_ service: SCNetworkService) {
         self.service = service
@@ -61,5 +61,13 @@ open class NetworkService {
     
     open func remove(protocolType: CFString) throws {
         try SCNetworkServiceRemoveProtocolType(self.service, protocolType)~
+    }
+    
+    open var hashValue: Int {
+        return self.service.hashValue
+    }
+    
+    open static func == (lhs: NetworkService, rhs: NetworkService) -> Bool {
+        return lhs.service == rhs.service
     }
 }

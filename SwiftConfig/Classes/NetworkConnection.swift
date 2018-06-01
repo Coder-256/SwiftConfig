@@ -15,7 +15,7 @@ fileprivate func connectionCallout(conn: SCNetworkConnection, status: SCNetworkC
     }
 }
 
-open class NetworkConnection {
+open class NetworkConnection: Hashable, Equatable {
     private var _conn: SCNetworkConnection?
     open var conn: SCNetworkConnection { return self._conn! }
     open var callout: ((SCNetworkConnectionStatus) -> ())?
@@ -64,5 +64,13 @@ open class NetworkConnection {
     
     open func userOptions() throws -> [CFString: CFPropertyList] {
         return try SCNetworkConnectionCopyUserOptions(self.conn)%
+    }
+    
+    open var hashValue: Int {
+        return self.conn.hashValue
+    }
+    
+    open static func == (lhs: NetworkConnection, rhs: NetworkConnection) -> Bool {
+        return lhs.conn == rhs.conn
     }
 }

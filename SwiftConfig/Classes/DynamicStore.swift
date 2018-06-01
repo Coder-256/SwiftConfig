@@ -16,7 +16,7 @@ fileprivate func storeCallout(store: SCDynamicStore, changedKeys: CFArray, info:
     }
 }
 
-open class DynamicStore {
+open class DynamicStore: Hashable, Equatable {
     public typealias Key = CFString
     public typealias Value = CFPropertyList
     
@@ -144,5 +144,13 @@ open class DynamicStore {
     
     open func dhcpInfo(serviceID: CFString? = nil) throws -> DHCPInfo {
         return try DHCPInfo(SCDynamicStoreCopyDHCPInfo(self.store, serviceID)~)
+    }
+    
+    open var hashValue: Int {
+        return self.store.hashValue
+    }
+    
+    open static func == (lhs: DynamicStore, rhs: DynamicStore) -> Bool {
+        return lhs.store == rhs.store
     }
 }

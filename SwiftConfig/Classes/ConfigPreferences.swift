@@ -15,7 +15,7 @@ fileprivate func configCallout(prefs: SCPreferences, notificationType: SCPrefere
     }
 }
 
-open class ConfigPreferences {
+open class ConfigPreferences: Hashable, Equatable {
     public typealias Key = CFString
     public typealias Value = CFPropertyList
     
@@ -173,5 +173,13 @@ open class ConfigPreferences {
     
     open func vlanCreate(physical: VLANNetworkInterface, tag: CFNumber) throws -> VLANNetworkInterface {
         return try VLANNetworkInterface(SCVLANInterfaceCreate(self.prefs, physical.interface, tag)~)
+    }
+    
+    open var hashValue: Int {
+        return self.prefs.hashValue
+    }
+    
+    open static func == (lhs: ConfigPreferences, rhs: ConfigPreferences) -> Bool {
+        return lhs.prefs == rhs.prefs
     }
 }

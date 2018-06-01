@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkInterface {
+open class NetworkInterface: Hashable, Equatable {
     open let interface: SCNetworkInterface
     public init(_ interface: SCNetworkInterface) {
         self.interface = interface
@@ -113,5 +113,13 @@ open class NetworkInterface {
     open var active: Bool {
         guard let bsdName = self.bsdName() else { return false }
         return _swiftconfig_check_active(bsdName)
+    }
+    
+    open var hashValue: Int {
+        return self.interface.hashValue
+    }
+    
+    open static func == (lhs: NetworkInterface, rhs: NetworkInterface) -> Bool {
+        return lhs.interface == rhs.interface
     }
 }

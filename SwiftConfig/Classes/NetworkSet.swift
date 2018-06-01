@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkSet {
+open class NetworkSet: Hashable, Equatable {
     open let set: SCNetworkSet
     public init(_ set: SCNetworkSet) {
         self.set = set
@@ -65,5 +65,13 @@ open class NetworkSet {
     
     open func remove() throws {
         try SCNetworkSetRemove(self.set)~
+    }
+    
+    open var hashValue: Int {
+        return self.set.hashValue
+    }
+    
+    open static func == (lhs: NetworkSet, rhs: NetworkSet) -> Bool {
+        return lhs.set == rhs.set
     }
 }

@@ -15,7 +15,7 @@ fileprivate func reachabilityCallout(target: SCNetworkReachability, flags: SCNet
     }
 }
 
-open class NetworkReachability {
+open class NetworkReachability: Hashable, Equatable {
     private var _target: SCNetworkReachability?
     open var target: SCNetworkReachability { return self._target! }
     open var callout: ((SCNetworkReachabilityFlags) -> ())?
@@ -64,5 +64,13 @@ open class NetworkReachability {
         var flags = SCNetworkReachabilityFlags()
         guard SCNetworkReachabilityGetFlags(self.target, &flags) else { fatalError("SCNetworkReachabilityGetFlags failed") }
         return flags
+    }
+    
+    open var hashValue: Int {
+        return self.target.hashValue
+    }
+    
+    open static func == (lhs: NetworkReachability, rhs: NetworkReachability) -> Bool {
+        return lhs.target == rhs.target
     }
 }
