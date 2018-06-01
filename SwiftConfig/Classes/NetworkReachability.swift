@@ -9,7 +9,9 @@
 import Foundation
 import SystemConfiguration
 
-fileprivate func reachabilityCallout(target: SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) {
+private func reachabilityCallout(target: SCNetworkReachability,
+                                 flags: SCNetworkReachabilityFlags,
+                                 info: UnsafeMutableRawPointer?) {
     if let info = info {
         ConfigHelper<NetworkReachability, SCNetworkReachabilityContext>.decodeContext(info).callout?(flags)
     }
@@ -17,25 +19,28 @@ fileprivate func reachabilityCallout(target: SCNetworkReachability, flags: SCNet
 
 open class NetworkReachability: Hashable, Equatable {
     private var _target: SCNetworkReachability?
+    // swiftlint:disable:next force_unwrapping
     open var target: SCNetworkReachability { return self._target! }
-    open var callout: ((SCNetworkReachabilityFlags) -> ())?
-    
+    open var callout: ((SCNetworkReachabilityFlags) -> Void)?
+
     private func setupCallout() {
         var context = ConfigHelper<NetworkReachability, SCNetworkReachabilityContext>.makeContext(self)
-        guard SCNetworkReachabilitySetCallback(self.target, reachabilityCallout(target:flags:info:), &context) else { fatalError("SCNetworkReachabilitySetCallback failed") }
+        guard SCNetworkReachabilitySetCallback(self.target,
+                                               reachabilityCallout(target:flags:info:),
+                                               &context) else { fatalError("SCNetworkReachabilitySetCallback failed") }
     }
-    
+
     public init(_ target: SCNetworkReachability) {
         self._target = target
         setupCallout()
     }
-    
+
     public init(address: sockaddr) throws {
         var addrCopy = address
         self._target = try SCNetworkReachabilityCreateWithAddress(nil, &addrCopy)~
         setupCallout()
     }
-    
+
     // If there's a better way to do this, let me know!
     public init(localAddress: sockaddr?, remoteAddress: sockaddr?) throws {
         if var localCopy = localAddress {
@@ -54,22 +59,23 @@ open class NetworkReachability: Hashable, Equatable {
 
         setupCallout()
     }
-    
+
     public init(nodeName: String) throws {
         self._target = try SCNetworkReachabilityCreateWithName(nil, nodeName)~
         setupCallout()
     }
-    
+
     open func flags() -> SCNetworkReachabilityFlags {
         var flags = SCNetworkReachabilityFlags()
-        guard SCNetworkReachabilityGetFlags(self.target, &flags) else { fatalError("SCNetworkReachabilityGetFlags failed") }
+        guard SCNetworkReachabilityGetFlags(self.target,
+                                            &flags) else { fatalError("SCNetworkReachabilityGetFlags failed") }
         return flags
     }
-    
+
     open var hashValue: Int {
         return self.target.hashValue
     }
-    
+
     open static func == (lhs: NetworkReachability, rhs: NetworkReachability) -> Bool {
         return lhs.target == rhs.target
     }
