@@ -15,23 +15,24 @@ open class NetworkProtocol {
         self.netProtocol = netProtocol
     }
     
-    open var configuration: [CFString: CFPropertyList]? {
-        get {
-            return SCNetworkProtocolGetConfiguration(self.netProtocol) as? [CFString: CFPropertyList]
-        } set {
-            SCNetworkProtocolSetConfiguration(self.netProtocol, newValue as CFDictionary?)
-        }
+    open func configuration() throws -> [CFString: CFPropertyList] {
+        return try SCNetworkProtocolGetConfiguration(self.netProtocol)%
     }
     
-    open var enabled: Bool {
-        get {
-            return SCNetworkProtocolGetEnabled(self.netProtocol)
-        } set {
-            SCNetworkProtocolSetEnabled(self.netProtocol, newValue)
-        }
+    open func setConfiguration(_ newValue: [CFString: CFPropertyList]?) throws {
+        try SCNetworkProtocolSetConfiguration(self.netProtocol, newValue as CFDictionary?)~
     }
     
-    open var protocolType: CFString? {
+    open func enabled() -> Bool {
+        return SCNetworkProtocolGetEnabled(self.netProtocol)
+    }
+    
+    open func setEnabled(_ newValue: Bool) throws {
+        try SCNetworkProtocolSetEnabled(self.netProtocol, newValue)~
+    }
+    
+    open func protocolType() -> CFString! {
+        // Specified as non-nil in SCNetworkProtocol.c:166
         return SCNetworkProtocolGetProtocolType(self.netProtocol)
     }
 }

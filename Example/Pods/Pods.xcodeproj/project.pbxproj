@@ -7,23 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24027ABEB0BE44C2FDF74011B84D7C73 /* ConfigPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30F10453C5F45CA7A9004449943B69B /* ConfigPreferences.swift */; };
-		4114C4CEE7594960B534F6A2144B5FCC /* NetworkSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E6627375C1EE2C30F43A7D97AF173C /* NetworkSet.swift */; };
-		41397FA0EFC9AA18934AF610550E2C25 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7251CD3737086112F3D0F06B0C91C8 /* NetworkService.swift */; };
-		4CF64218C7EEA8F507D7A717D0D3D726 /* BondNetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8132C72CDD33FB63F9BA6865149D137 /* BondNetworkInterface.swift */; };
-		607BF78209FEEEBA2C98F696C4E4E9D4 /* NetworkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2524D99523B936038F8E9F584832C1F2 /* NetworkConnection.swift */; };
+		12A05F64FE517212739A75495E2AE582 /* DynamicStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90964BB7424D4AF5B3F80BA2A3A45EF /* DynamicStore.swift */; };
+		3133F75568A8FCB056E97C1E7160A093 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614116A10516CC1E4B8117F501DBA9B /* NetworkProtocol.swift */; };
 		69ED9AFBFBA2D48FB0605C4F328A4B39 /* Pods-SwiftConfig_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F8254FA3A3F8059557EF3CFAB0468494 /* Pods-SwiftConfig_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6B8EE29DFA2648317B9627E925312744 /* NetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284BC7B7380CBCD81B00B577AFFB22BD /* NetworkInterface.swift */; };
-		6F072F68A8C8FF04B378979567FF94D4 /* DynamicStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56CE1D93B13E1AAF9F51CCE81D9EB7D /* DynamicStore.swift */; };
-		710EB5425E41E071BB94AEEF2F4D362B /* ConfigContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C342F274F4759347C17C45C700DEA58D /* ConfigContext.swift */; };
-		862F8A82EC09FE3BC48B3D304D50F4F2 /* SwiftConfig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BC97725929791BB89A3D49CA5D8CA03 /* SwiftConfig-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8C1E9F324E25659FC8A53CCD92D63382 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AFCFD47AEF74DD2F640E88BE917BD1 /* NetworkProtocol.swift */; };
-		AD2F13AFB323DBFDA3B14A6BE37BDEDB /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363DE9F0664120BF39A7FADF7387F6C9 /* NetworkReachability.swift */; };
-		AEDEF5627D28436546049273933BCCDA /* SwiftConfig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F395244B1A5A1EBD45AA23302BB816 /* SwiftConfig-dummy.m */; };
-		BB29CFEB5F5F238DB670BC91FA683AD7 /* check_active.c in Sources */ = {isa = PBXBuildFile; fileRef = 52939101A69DFA65A086ADBA18A5C19A /* check_active.c */; };
-		BBBE6769915CEDE25A6A98131D65D224 /* check_active.h in Headers */ = {isa = PBXBuildFile; fileRef = 2719D720D6D6BF61B4B3CA2F366E51CC /* check_active.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D7E5B30DEA61DA2DD843985309A7E748 /* VLANNetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B54510AEE4501AA8207CC744C332E2 /* VLANNetworkInterface.swift */; };
+		7DB7591F87ED971C90F150C80D25F4C2 /* BondNetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C149CC64DEE1B57D16FD0E07A6874B /* BondNetworkInterface.swift */; };
+		862F8A82EC09FE3BC48B3D304D50F4F2 /* SwiftConfig-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BD3E5B27FD2E7C0D6C6522504022DC51 /* SwiftConfig-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		88213A1ED32B15B0A2C34A477640B229 /* ConfigError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F51309541AE06B756D20B26D5653385 /* ConfigError.swift */; };
+		946086A2497131BCEA138EAA893E40C5 /* ConfigPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F1C33ED1BF9E091AC44937F155228E /* ConfigPreferences.swift */; };
+		9D3131957E37B3C9851D2E827F3DF643 /* NetworkSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F96951A01B14F8536ED657955FB436 /* NetworkSet.swift */; };
+		AAD9B913D4A8171674296DF45784ACA5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED435A9D2232CC57DF88B6DBEFFCA7B8 /* NetworkService.swift */; };
+		AE1BE007E5644059E304C5C7F3D5B523 /* SwiftConfig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB3EBF8707396EF34D6BA5C8440FD51 /* SwiftConfig-dummy.m */; };
+		BBBE6769915CEDE25A6A98131D65D224 /* check_active.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A487AE5BFD030D8FA4BB18EDB65506F /* check_active.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC451FD0343C251008FDFB87BCC85C28 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F670AFE1E07C48EC17A3AA55076AC7E3 /* NetworkReachability.swift */; };
+		C4AB6DB346DC0463C00CB59FFB31BF16 /* check_active.c in Sources */ = {isa = PBXBuildFile; fileRef = 452B5044379136BFF747888C1B41CED7 /* check_active.c */; };
+		CDF54678268D3B5DA5CBE6B127CF0F83 /* VLANNetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C286925C237CE4608CD5375FEC5FD7B4 /* VLANNetworkInterface.swift */; };
 		DE6959AF99C17414A60889F80037ACB2 /* Pods-SwiftConfig_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C72BF79C6B275412E1B04E436D2F636 /* Pods-SwiftConfig_Tests-dummy.m */; };
+		E6F4C43800AD915AC7614C17B7424584 /* NetworkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7839CE16314ED9D3ED683F5166FEC /* NetworkConnection.swift */; };
+		F807398373F6631A783A1C0129B370BF /* ConfigContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F72B754B133E66DFE24683F9C3399E /* ConfigContext.swift */; };
+		FE590E969B66D143A383724BD38271B1 /* NetworkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345AE731B6E242752813602241E29D2B /* NetworkInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,39 +38,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C7251CD3737086112F3D0F06B0C91C8 /* NetworkService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkService.swift; path = SwiftConfig/Classes/NetworkService.swift; sourceTree = "<group>"; };
-		10AFCFD47AEF74DD2F640E88BE917BD1 /* NetworkProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkProtocol.swift; path = SwiftConfig/Classes/NetworkProtocol.swift; sourceTree = "<group>"; };
-		2524D99523B936038F8E9F584832C1F2 /* NetworkConnection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkConnection.swift; path = SwiftConfig/Classes/NetworkConnection.swift; sourceTree = "<group>"; };
-		2719D720D6D6BF61B4B3CA2F366E51CC /* check_active.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = check_active.h; path = SwiftConfig/Classes/check_active.h; sourceTree = "<group>"; };
-		274A5F7FC135BD5CCB1B8FE92ECAB5C7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		284BC7B7380CBCD81B00B577AFFB22BD /* NetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkInterface.swift; path = SwiftConfig/Classes/NetworkInterface.swift; sourceTree = "<group>"; };
-		363DE9F0664120BF39A7FADF7387F6C9 /* NetworkReachability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachability.swift; path = SwiftConfig/Classes/NetworkReachability.swift; sourceTree = "<group>"; };
+		00F7839CE16314ED9D3ED683F5166FEC /* NetworkConnection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkConnection.swift; path = SwiftConfig/Classes/NetworkConnection.swift; sourceTree = "<group>"; };
+		2B02FA141B4D2CC55F9696FECEBA5612 /* SwiftConfig.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftConfig.modulemap; sourceTree = "<group>"; };
+		345AE731B6E242752813602241E29D2B /* NetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkInterface.swift; path = SwiftConfig/Classes/NetworkInterface.swift; sourceTree = "<group>"; };
+		34C149CC64DEE1B57D16FD0E07A6874B /* BondNetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BondNetworkInterface.swift; path = SwiftConfig/Classes/BondNetworkInterface.swift; sourceTree = "<group>"; };
+		3614116A10516CC1E4B8117F501DBA9B /* NetworkProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkProtocol.swift; path = SwiftConfig/Classes/NetworkProtocol.swift; sourceTree = "<group>"; };
 		3A8A9C655EEC18272AD2A8E42F2EDCFB /* Pods-SwiftConfig_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftConfig_Tests-Info.plist"; sourceTree = "<group>"; };
 		3C72BF79C6B275412E1B04E436D2F636 /* Pods-SwiftConfig_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SwiftConfig_Tests-dummy.m"; sourceTree = "<group>"; };
+		41F72B754B133E66DFE24683F9C3399E /* ConfigContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigContext.swift; path = SwiftConfig/Classes/ConfigContext.swift; sourceTree = "<group>"; };
+		452B5044379136BFF747888C1B41CED7 /* check_active.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = check_active.c; path = SwiftConfig/Classes/check_active.c; sourceTree = "<group>"; };
+		481D5F704393C511F821B80DA85A6C96 /* SwiftConfig.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = SwiftConfig.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		4A487AE5BFD030D8FA4BB18EDB65506F /* check_active.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = check_active.h; path = SwiftConfig/Classes/check_active.h; sourceTree = "<group>"; };
 		4AB9E6382F6B120C25B7C9EE659BEDAC /* Pods-SwiftConfig_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftConfig_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		52939101A69DFA65A086ADBA18A5C19A /* check_active.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = check_active.c; path = SwiftConfig/Classes/check_active.c; sourceTree = "<group>"; };
-		53D1D099443BD2C0F89143F88AEF7D9D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		66F395244B1A5A1EBD45AA23302BB816 /* SwiftConfig-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftConfig-dummy.m"; sourceTree = "<group>"; };
-		7D1140F4DFB4CC9F50FBA01BF0FFDDDF /* SwiftConfig.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = SwiftConfig.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		82E6627375C1EE2C30F43A7D97AF173C /* NetworkSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkSet.swift; path = SwiftConfig/Classes/NetworkSet.swift; sourceTree = "<group>"; };
-		87FEED27BB9AC90F69E4A937B71AA726 /* SwiftConfig.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftConfig.xcconfig; sourceTree = "<group>"; };
-		8BC97725929791BB89A3D49CA5D8CA03 /* SwiftConfig-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftConfig-umbrella.h"; sourceTree = "<group>"; };
+		4C21EEFF4E712FD653D1165F4C57E281 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6D1E7CB286B7C9D6CC1C5D28C99404B9 /* SwiftConfig.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftConfig.xcconfig; sourceTree = "<group>"; };
+		6F51309541AE06B756D20B26D5653385 /* ConfigError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigError.swift; path = SwiftConfig/Classes/ConfigError.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95BF59BFE98200E45D37B6261FFF2E4B /* Pods_SwiftConfig_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftConfig_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		983B18075150FC281C28A10BFF12C60F /* Pods-SwiftConfig_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftConfig_Tests-resources.sh"; sourceTree = "<group>"; };
 		9E8ADD51208DB44DF8B2617A104386B4 /* Pods-SwiftConfig_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftConfig_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		A0C24DBA4010212FEB6E4DCD8B8EC02A /* SwiftConfig-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftConfig-prefix.pch"; sourceTree = "<group>"; };
+		A2F96951A01B14F8536ED657955FB436 /* NetworkSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkSet.swift; path = SwiftConfig/Classes/NetworkSet.swift; sourceTree = "<group>"; };
+		A3F1C33ED1BF9E091AC44937F155228E /* ConfigPreferences.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigPreferences.swift; path = SwiftConfig/Classes/ConfigPreferences.swift; sourceTree = "<group>"; };
 		AC54BD0CB00C158EE43AD81F9A206907 /* SwiftConfig.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftConfig.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B860671D8618B72D27DA57D8905D9597 /* Pods-SwiftConfig_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SwiftConfig_Tests.modulemap"; sourceTree = "<group>"; };
+		B90964BB7424D4AF5B3F80BA2A3A45EF /* DynamicStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DynamicStore.swift; path = SwiftConfig/Classes/DynamicStore.swift; sourceTree = "<group>"; };
+		BD3E5B27FD2E7C0D6C6522504022DC51 /* SwiftConfig-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftConfig-umbrella.h"; sourceTree = "<group>"; };
 		BE0E019288EF93CA54BCB970615CDADB /* Pods-SwiftConfig_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SwiftConfig_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		C342F274F4759347C17C45C700DEA58D /* ConfigContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigContext.swift; path = SwiftConfig/Classes/ConfigContext.swift; sourceTree = "<group>"; };
-		C8132C72CDD33FB63F9BA6865149D137 /* BondNetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BondNetworkInterface.swift; path = SwiftConfig/Classes/BondNetworkInterface.swift; sourceTree = "<group>"; };
-		C8B54510AEE4501AA8207CC744C332E2 /* VLANNetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VLANNetworkInterface.swift; path = SwiftConfig/Classes/VLANNetworkInterface.swift; sourceTree = "<group>"; };
-		D45ECD364EEEDFC2BE53788BCC006F38 /* SwiftConfig.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftConfig.modulemap; sourceTree = "<group>"; };
+		C286925C237CE4608CD5375FEC5FD7B4 /* VLANNetworkInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VLANNetworkInterface.swift; path = SwiftConfig/Classes/VLANNetworkInterface.swift; sourceTree = "<group>"; };
+		CC7EB1790EA4F2CEE65FBBD5A642F71C /* SwiftConfig-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftConfig-prefix.pch"; sourceTree = "<group>"; };
 		DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		E78497482B0E5F8E64801457F8AFA8A2 /* SwiftConfig-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftConfig-Info.plist"; sourceTree = "<group>"; };
-		F30F10453C5F45CA7A9004449943B69B /* ConfigPreferences.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigPreferences.swift; path = SwiftConfig/Classes/ConfigPreferences.swift; sourceTree = "<group>"; };
-		F56CE1D93B13E1AAF9F51CCE81D9EB7D /* DynamicStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DynamicStore.swift; path = SwiftConfig/Classes/DynamicStore.swift; sourceTree = "<group>"; };
+		ED435A9D2232CC57DF88B6DBEFFCA7B8 /* NetworkService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkService.swift; path = SwiftConfig/Classes/NetworkService.swift; sourceTree = "<group>"; };
+		EDB3EBF8707396EF34D6BA5C8440FD51 /* SwiftConfig-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftConfig-dummy.m"; sourceTree = "<group>"; };
+		EE7D14B3CBE06134E3A511894FD934E7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F4F2483C7333A551E9214279E2E52291 /* SwiftConfig-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftConfig-Info.plist"; sourceTree = "<group>"; };
+		F670AFE1E07C48EC17A3AA55076AC7E3 /* NetworkReachability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachability.swift; path = SwiftConfig/Classes/NetworkReachability.swift; sourceTree = "<group>"; };
 		F8254FA3A3F8059557EF3CFAB0468494 /* Pods-SwiftConfig_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftConfig_Tests-umbrella.h"; sourceTree = "<group>"; };
 		FB54E571F6273CA3C0A4C158B325091C /* Pods-SwiftConfig_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftConfig_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		FBCA1136FE4594666E0A38605A621EC9 /* Pods-SwiftConfig_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftConfig_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,12 +95,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2DE489D66A66E6360E81E02AD847279B /* Development Pods */ = {
+		0E054B3C513E771F8CD606F8A263DA3F /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BE25E0BD3D00995A225E9A93B37C7EBC /* SwiftConfig */,
+				20E8269F94D122BB2A91C89CE2BAEC48 /* SwiftConfig */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		20E8269F94D122BB2A91C89CE2BAEC48 /* SwiftConfig */ = {
+			isa = PBXGroup;
+			children = (
+				34C149CC64DEE1B57D16FD0E07A6874B /* BondNetworkInterface.swift */,
+				452B5044379136BFF747888C1B41CED7 /* check_active.c */,
+				4A487AE5BFD030D8FA4BB18EDB65506F /* check_active.h */,
+				41F72B754B133E66DFE24683F9C3399E /* ConfigContext.swift */,
+				6F51309541AE06B756D20B26D5653385 /* ConfigError.swift */,
+				A3F1C33ED1BF9E091AC44937F155228E /* ConfigPreferences.swift */,
+				B90964BB7424D4AF5B3F80BA2A3A45EF /* DynamicStore.swift */,
+				00F7839CE16314ED9D3ED683F5166FEC /* NetworkConnection.swift */,
+				345AE731B6E242752813602241E29D2B /* NetworkInterface.swift */,
+				3614116A10516CC1E4B8117F501DBA9B /* NetworkProtocol.swift */,
+				F670AFE1E07C48EC17A3AA55076AC7E3 /* NetworkReachability.swift */,
+				ED435A9D2232CC57DF88B6DBEFFCA7B8 /* NetworkService.swift */,
+				A2F96951A01B14F8536ED657955FB436 /* NetworkSet.swift */,
+				C286925C237CE4608CD5375FEC5FD7B4 /* VLANNetworkInterface.swift */,
+				C14CB5AF4254A34D42FFB1C8002FD828 /* Pod */,
+				4C85DC7888B87855CF591D96F456D193 /* Support Files */,
+			);
+			name = SwiftConfig;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */ = {
@@ -109,28 +135,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4043532B6D2487494A7C7473109DFBD7 /* Support Files */ = {
+		4C85DC7888B87855CF591D96F456D193 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				D45ECD364EEEDFC2BE53788BCC006F38 /* SwiftConfig.modulemap */,
-				87FEED27BB9AC90F69E4A937B71AA726 /* SwiftConfig.xcconfig */,
-				66F395244B1A5A1EBD45AA23302BB816 /* SwiftConfig-dummy.m */,
-				E78497482B0E5F8E64801457F8AFA8A2 /* SwiftConfig-Info.plist */,
-				A0C24DBA4010212FEB6E4DCD8B8EC02A /* SwiftConfig-prefix.pch */,
-				8BC97725929791BB89A3D49CA5D8CA03 /* SwiftConfig-umbrella.h */,
+				2B02FA141B4D2CC55F9696FECEBA5612 /* SwiftConfig.modulemap */,
+				6D1E7CB286B7C9D6CC1C5D28C99404B9 /* SwiftConfig.xcconfig */,
+				EDB3EBF8707396EF34D6BA5C8440FD51 /* SwiftConfig-dummy.m */,
+				F4F2483C7333A551E9214279E2E52291 /* SwiftConfig-Info.plist */,
+				CC7EB1790EA4F2CEE65FBBD5A642F71C /* SwiftConfig-prefix.pch */,
+				BD3E5B27FD2E7C0D6C6522504022DC51 /* SwiftConfig-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/SwiftConfig";
-			sourceTree = "<group>";
-		};
-		52DA382DC22382896A36521135DFAD65 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				53D1D099443BD2C0F89143F88AEF7D9D /* LICENSE */,
-				274A5F7FC135BD5CCB1B8FE92ECAB5C7 /* README.md */,
-				7D1140F4DFB4CC9F50FBA01BF0FFDDDF /* SwiftConfig.podspec */,
-			);
-			name = Pod;
 			sourceTree = "<group>";
 		};
 		6DD7E27627834FCE40743A1DF04D9F8B /* Pods-SwiftConfig_Tests */ = {
@@ -155,7 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				2DE489D66A66E6360E81E02AD847279B /* Development Pods */,
+				0E054B3C513E771F8CD606F8A263DA3F /* Development Pods */,
 				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
 				B73225D2D427644D52B7CF6F56CB0A90 /* Products */,
 				9E92E01152F38376C9E8C41E4B0C677E /* Targets Support Files */,
@@ -179,27 +195,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BE25E0BD3D00995A225E9A93B37C7EBC /* SwiftConfig */ = {
+		C14CB5AF4254A34D42FFB1C8002FD828 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				C8132C72CDD33FB63F9BA6865149D137 /* BondNetworkInterface.swift */,
-				52939101A69DFA65A086ADBA18A5C19A /* check_active.c */,
-				2719D720D6D6BF61B4B3CA2F366E51CC /* check_active.h */,
-				C342F274F4759347C17C45C700DEA58D /* ConfigContext.swift */,
-				F30F10453C5F45CA7A9004449943B69B /* ConfigPreferences.swift */,
-				F56CE1D93B13E1AAF9F51CCE81D9EB7D /* DynamicStore.swift */,
-				2524D99523B936038F8E9F584832C1F2 /* NetworkConnection.swift */,
-				284BC7B7380CBCD81B00B577AFFB22BD /* NetworkInterface.swift */,
-				10AFCFD47AEF74DD2F640E88BE917BD1 /* NetworkProtocol.swift */,
-				363DE9F0664120BF39A7FADF7387F6C9 /* NetworkReachability.swift */,
-				0C7251CD3737086112F3D0F06B0C91C8 /* NetworkService.swift */,
-				82E6627375C1EE2C30F43A7D97AF173C /* NetworkSet.swift */,
-				C8B54510AEE4501AA8207CC744C332E2 /* VLANNetworkInterface.swift */,
-				52DA382DC22382896A36521135DFAD65 /* Pod */,
-				4043532B6D2487494A7C7473109DFBD7 /* Support Files */,
+				4C21EEFF4E712FD653D1165F4C57E281 /* LICENSE */,
+				EE7D14B3CBE06134E3A511894FD934E7 /* README.md */,
+				481D5F704393C511F821B80DA85A6C96 /* SwiftConfig.podspec */,
 			);
-			name = SwiftConfig;
-			path = ../..;
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		FA7AC8429882A95AA0810A9DCDED54FF /* OS X */ = {
@@ -255,7 +258,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AC9965430D74C314D8707FAC7B93789 /* Build configuration list for PBXNativeTarget "SwiftConfig" */;
 			buildPhases = (
-				50F80E3ADB48E5FFE7094F3D672E771A /* Sources */,
+				0FCB28033257EBB652BD9B303D659D55 /* Sources */,
 				AE45CDBF6585359AB4A4F92EF13E953F /* Frameworks */,
 				4803104FCC8B368AE88115CDCED73A01 /* Headers */,
 			);
@@ -296,23 +299,24 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		50F80E3ADB48E5FFE7094F3D672E771A /* Sources */ = {
+		0FCB28033257EBB652BD9B303D659D55 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CF64218C7EEA8F507D7A717D0D3D726 /* BondNetworkInterface.swift in Sources */,
-				BB29CFEB5F5F238DB670BC91FA683AD7 /* check_active.c in Sources */,
-				710EB5425E41E071BB94AEEF2F4D362B /* ConfigContext.swift in Sources */,
-				24027ABEB0BE44C2FDF74011B84D7C73 /* ConfigPreferences.swift in Sources */,
-				6F072F68A8C8FF04B378979567FF94D4 /* DynamicStore.swift in Sources */,
-				607BF78209FEEEBA2C98F696C4E4E9D4 /* NetworkConnection.swift in Sources */,
-				6B8EE29DFA2648317B9627E925312744 /* NetworkInterface.swift in Sources */,
-				8C1E9F324E25659FC8A53CCD92D63382 /* NetworkProtocol.swift in Sources */,
-				AD2F13AFB323DBFDA3B14A6BE37BDEDB /* NetworkReachability.swift in Sources */,
-				41397FA0EFC9AA18934AF610550E2C25 /* NetworkService.swift in Sources */,
-				4114C4CEE7594960B534F6A2144B5FCC /* NetworkSet.swift in Sources */,
-				AEDEF5627D28436546049273933BCCDA /* SwiftConfig-dummy.m in Sources */,
-				D7E5B30DEA61DA2DD843985309A7E748 /* VLANNetworkInterface.swift in Sources */,
+				7DB7591F87ED971C90F150C80D25F4C2 /* BondNetworkInterface.swift in Sources */,
+				C4AB6DB346DC0463C00CB59FFB31BF16 /* check_active.c in Sources */,
+				F807398373F6631A783A1C0129B370BF /* ConfigContext.swift in Sources */,
+				88213A1ED32B15B0A2C34A477640B229 /* ConfigError.swift in Sources */,
+				946086A2497131BCEA138EAA893E40C5 /* ConfigPreferences.swift in Sources */,
+				12A05F64FE517212739A75495E2AE582 /* DynamicStore.swift in Sources */,
+				E6F4C43800AD915AC7614C17B7424584 /* NetworkConnection.swift in Sources */,
+				FE590E969B66D143A383724BD38271B1 /* NetworkInterface.swift in Sources */,
+				3133F75568A8FCB056E97C1E7160A093 /* NetworkProtocol.swift in Sources */,
+				BC451FD0343C251008FDFB87BCC85C28 /* NetworkReachability.swift in Sources */,
+				AAD9B913D4A8171674296DF45784ACA5 /* NetworkService.swift in Sources */,
+				9D3131957E37B3C9851D2E827F3DF643 /* NetworkSet.swift in Sources */,
+				AE1BE007E5644059E304C5C7F3D5B523 /* SwiftConfig-dummy.m in Sources */,
+				CDF54678268D3B5DA5CBE6B127CF0F83 /* VLANNetworkInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +382,7 @@
 		};
 		4B46842CD94ABB0D35866C5939176BA2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 87FEED27BB9AC90F69E4A937B71AA726 /* SwiftConfig.xcconfig */;
+			baseConfigurationReference = 6D1E7CB286B7C9D6CC1C5D28C99404B9 /* SwiftConfig.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -579,7 +583,7 @@
 		};
 		F0C2661F76017C8D414D97DD7D73B604 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 87FEED27BB9AC90F69E4A937B71AA726 /* SwiftConfig.xcconfig */;
+			baseConfigurationReference = 6D1E7CB286B7C9D6CC1C5D28C99404B9 /* SwiftConfig.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";

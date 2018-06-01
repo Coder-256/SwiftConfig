@@ -21,64 +21,67 @@ open class DynamicStore {
     public typealias Value = CFPropertyList
     
     private(set) var _store: SCDynamicStore? = nil
+    private var _notificationKeys: [Key] = []
     open var store: SCDynamicStore { return self._store! }
     open var callout: (([Key]) -> ())?
-    open var notificationKeys: [Key] = [] {
-        didSet {
-            SCDynamicStoreSetNotificationKeys(self.store, self.notificationKeys as CFArray, nil)
-        }
-    }
     
     public init(_ store: SCDynamicStore) {
         self._store = store
     }
     
-    public init?(name: CFString) {
+    public init(name: CFString) throws {
         var context = ConfigHelper<DynamicStore, SCDynamicStoreContext>.makeContext(self)
-        guard let store = SCDynamicStoreCreate(nil, name, storeCallout(store:changedKeys:info:), &context) else { return nil }
-        self._store = store
+        self._store = try SCDynamicStoreCreate(nil, name, storeCallout(store:changedKeys:info:), &context)~
     }
     
-    public convenience init?(name: String) {
-        self.init(name: name as CFString)
+    public convenience init(name: String) throws {
+        try self.init(name: name as CFString)
     }
     
-    open subscript(_ key: Key) -> Value? {
-        get {
-            return SCDynamicStoreCopyValue(self.store, key)
-        }
-        set(value) {
-            if let value = value {
-                SCDynamicStoreSetValue(self.store, key, value)
-            } else {
-                SCDynamicStoreRemoveValue(self.store, key)
-            }
+    open func get(key: Key) throws -> Value {
+        return try SCDynamicStoreCopyValue(self.store, key)~
+    }
+    
+    open func set(key: Key, to value: Value?) throws {
+        if let value = value {
+            try SCDynamicStoreSetValue(self.store, key, value)~
+        } else {
+            try SCDynamicStoreRemoveValue(self.store, key)~
         }
     }
     
-    open var computerInfo: (name: String?, encoding: CFStringEncoding?) {
-        var encoding: CFStringEncoding = 0
-        let name = SCDynamicStoreCopyComputerName(self.store, &encoding) as String?
+    open func notificationKeys() -> [Key] {
+        return self._notificationKeys
+    }
+    
+    open func setNotificationKeys(_ newValue: [Key]) throws {
+        try SCDynamicStoreSetNotificationKeys(self.store, newValue as CFArray, nil)~
+        self._notificationKeys = newValue
+    }
+    
+    open func computerInfo() throws -> (name: String, encoding: CFStringEncoding) {
+        // If name is not nil, the encoding should be updated, but set this default just in case
+        var encoding: CFStringEncoding = CFStringGetSystemEncoding()
+        let name = try SCDynamicStoreCopyComputerName(self.store, &encoding)~ as String
         return (name: name, encoding: encoding)
     }
     
-    open var consoleUser: (uid: uid_t?, gid: gid_t?, info: String?) {
+    open func consoleUser() throws -> (uid: uid_t?, gid: gid_t?, info: String) {
         var uid: uid_t = 0
         var gid: gid_t = 0
-        let info = SCDynamicStoreCopyConsoleUser(store, &uid, &gid) as String?
-        guard info != nil else { return (uid: nil, gid: nil, info: nil) }
+        let info = try SCDynamicStoreCopyConsoleUser(store, &uid, &gid)~ as String
         return (uid: uid, gid: gid, info: info)
     }
     
-    open var localHostName: String? {
-        return SCDynamicStoreCopyLocalHostName(store) as String?
+    open func localHostName() throws -> String {
+        return try SCDynamicStoreCopyLocalHostName(store)~ as String
     }
     
-    open var currentLocationIdentifier: CFString? {
-        return SCDynamicStoreCopyLocalHostName(store)
+    open func currentLocationIdentifier() throws -> CFString {
+        return try SCDynamicStoreCopyLocation(store)~
     }
     
-    open var proxies: [CFString: CFPropertyList]? {
+    open func proxies() -> [CFString: CFPropertyList]! {
         return SCDynamicStoreCopyProxies(store) as? [CFString: CFPropertyList]
     }
     
@@ -98,23 +101,23 @@ open class DynamicStore {
         return SCDynamicStoreKeyCreateNetworkServiceEntity(nil, domain, serviceID, entity)
     }
     
-    open var keyComputerName: Key {
+    open func keyComputerName() -> Key {
         return SCDynamicStoreKeyCreateComputerName(nil)
     }
     
-    open var keyConsoleUser: Key {
+    open func keyConsoleUser() -> Key {
         return SCDynamicStoreKeyCreateConsoleUser(nil)
     }
     
-    open var keyHostNames: Key {
+    open func keyHostNames() -> Key {
         return SCDynamicStoreKeyCreateHostNames(nil)
     }
     
-    open var keyLocation: Key {
+    open func keyLocation() -> Key {
         return SCDynamicStoreKeyCreateLocation(nil)
     }
     
-    open var keyProxies: Key {
+    open func keyProxies() -> Key {
         return SCDynamicStoreKeyCreateProxies(nil)
     }
     
@@ -139,15 +142,7 @@ open class DynamicStore {
         }
     }
     
-    open var dhcpInfo: DHCPInfo? {
-        guard let info = SCDynamicStoreCopyDHCPInfo(self.store, nil) else { return nil }
-        return DHCPInfo(info)
-    }
-    
-    open func dhcpInfo(serviceID: CFString) -> DHCPInfo? {
-        guard let info = SCDynamicStoreCopyDHCPInfo(self.store, serviceID) else { return nil }
-        return DHCPInfo(info)
+    open func dhcpInfo(serviceID: CFString? = nil) throws -> DHCPInfo {
+        return try DHCPInfo(SCDynamicStoreCopyDHCPInfo(self.store, serviceID)~)
     }
 }
-
-

@@ -1,25 +1,31 @@
 import XCTest
 import SwiftConfig
 
+func noError(_ block: () throws -> ()) {
+    do {
+        try block()
+    } catch {
+        XCTFail(error.localizedDescription)
+    }
+}
+
 class Tests: XCTestCase {
     func testComputerName() {
-        if let computerName = DynamicStore(name: "SwiftConfig")?.computerInfo.name as String? {
-            print("Computer name: \(computerName)")
-            return
+        noError {
+            print("Computer name: \(try DynamicStore(name: "SwiftConfig").computerInfo().name)")
         }
-        XCTFail()
     }
     
     func testActiveServices() {
-        if let firstActive = ConfigPreferences(name: "SwiftConfig")?
-            .currentNetworkSet?
-            .services?
-            .first(where: { $0.enabled && ($0.interface?.active ?? false) })?
-            .name {
+        noError {
+            guard let firstActive = try ConfigPreferences(name: "SwiftConfig")
+                .currentNetworkSet()?
+                .services()?
+                .first(where: { try $0.enabled() && $0.interface().active })?
+                .name() else { XCTFail(); return }
+            
             print("First active service: \(firstActive)")
-            return
         }
-        XCTFail()
     }
 }
 

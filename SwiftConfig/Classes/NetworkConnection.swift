@@ -29,41 +29,41 @@ open class NetworkConnection {
         self._conn = conn
     }
     
-    open var userPreferences: (serviceID: CFString, userOptions: [CFString: CFPropertyList])? {
+    open func userPreferences(selectionOptions: [CFString: CFPropertyList]? = nil) throws -> (serviceID: CFString, userOptions: [CFString: CFPropertyList]) {
         var serviceID = Unmanaged<CFString>.passUnretained("" as CFString)
         var userOptions = Unmanaged<CFDictionary>.passUnretained([:] as CFDictionary)
-
-        guard SCNetworkConnectionCopyUserPreferences(nil, &serviceID, &userOptions) else { return nil }
         
-        return (serviceID: serviceID.takeRetainedValue(),
-                userOptions: userOptions.takeRetainedValue() as! [CFString: CFPropertyList])
+        try SCNetworkConnectionCopyUserPreferences(selectionOptions as CFDictionary?, &serviceID, &userOptions)~
+        
+        return try (serviceID: serviceID.takeRetainedValue(),
+                    userOptions: userOptions.takeRetainedValue()%)
     }
     
-    open var serviceID: CFString? {
+    open func serviceID() -> CFString? {
         return SCNetworkConnectionCopyServiceID(self.conn)
     }
     
-    open var status: SCNetworkConnectionStatus {
+    open func status() -> SCNetworkConnectionStatus {
         return SCNetworkConnectionGetStatus(self.conn)
     }
     
-    open var extendedStatus: [CFString: CFPropertyList]? {
-        return SCNetworkConnectionCopyExtendedStatus(self.conn) as? [CFString: CFPropertyList]
+    open func extendedStatus() throws -> [CFString: CFPropertyList] {
+        return try SCNetworkConnectionCopyExtendedStatus(self.conn)%
     }
     
-    open var statistics: [CFString: CFPropertyList]? {
-        return SCNetworkConnectionCopyStatistics(self.conn) as? [CFString: CFPropertyList]
+    open func statistics() throws -> [CFString: CFPropertyList] {
+        return try SCNetworkConnectionCopyStatistics(self.conn)%
     }
     
-    open func start(userOptions: [CFString: CFPropertyList]?, linger: Bool) -> Bool {
-        return SCNetworkConnectionStart(self.conn, userOptions as CFDictionary?, linger)
+    open func start(userOptions: [CFString: CFPropertyList]?, linger: Bool) throws {
+        try SCNetworkConnectionStart(self.conn, userOptions as CFDictionary?, linger)~
     }
     
-    open func stop(forceDisconnect: Bool) -> Bool {
-        return SCNetworkConnectionStop(self.conn, forceDisconnect)
+    open func stop(forceDisconnect: Bool) throws {
+        try SCNetworkConnectionStop(self.conn, forceDisconnect)~
     }
     
-    open var userOptions: [CFString: CFPropertyList]? {
-        return SCNetworkConnectionCopyUserOptions(self.conn) as? [CFString: CFPropertyList]
+    open func userOptions() throws -> [CFString: CFPropertyList] {
+        return try SCNetworkConnectionCopyUserOptions(self.conn)%
     }
 }
