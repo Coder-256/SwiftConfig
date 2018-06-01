@@ -33,8 +33,8 @@ open class NetworkInterface: Hashable, Equatable {
         return try NetworkInterface(SCNetworkInterfaceCreateWithInterface(self.interface, interfaceLayerType)~)
     }
     
-    open func bsdName() -> String? {
-        return SCNetworkInterfaceGetBSDName(self.interface) as String?
+    open func bsdName() -> CFString? {
+        return SCNetworkInterfaceGetBSDName(self.interface)
     }
     
     open func configuration() throws -> [CFString: CFPropertyList] {
@@ -112,7 +112,7 @@ open class NetworkInterface: Hashable, Equatable {
     
     open var active: Bool {
         guard let bsdName = self.bsdName() else { return false }
-        return _swiftconfig_check_active(bsdName)
+        return _swiftconfig_check_active(bsdName as String)
     }
     
     open var hashValue: Int {
