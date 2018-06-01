@@ -149,6 +149,10 @@ open class ConfigPreferences {
         return NetworkSet(result)
     }
     
+    open var services: [NetworkService]? {
+        return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.map { NetworkService($0) }
+    }
+    
     open func setComputerName(name: CFString?, nameEncoding: CFStringEncoding) -> Bool {
         return SCPreferencesSetComputerName(self.prefs, name, nameEncoding)
     }
@@ -171,8 +175,8 @@ open class ConfigPreferences {
         return (SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
     }
     
-    open var bondMemberInterfaces: [BondNetworkInterface]? {
-        return (SCBondInterfaceCopyAvailableMemberInterfaces(self.prefs) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
+    open var availableBondMemberInterfaces: [NetworkInterface]? {
+        return (SCBondInterfaceCopyAvailableMemberInterfaces(self.prefs) as? [SCNetworkInterface])?.map { NetworkInterface($0) }
     }
     
     open func bondCreate() -> BondNetworkInterface? {
@@ -189,9 +193,5 @@ open class ConfigPreferences {
     open func vlanCreate(physical: VLANNetworkInterface, tag: CFNumber) -> VLANNetworkInterface? {
         guard let result = SCVLANInterfaceCreate(self.prefs, physical.interface, tag) else { return nil }
         return VLANNetworkInterface(result)
-    }
-    
-    open var services: [NetworkService]? {
-        return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.map { NetworkService($0) }
     }
 }
