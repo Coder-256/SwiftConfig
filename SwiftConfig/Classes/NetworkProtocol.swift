@@ -32,7 +32,6 @@ open class NetworkProtocol {
     }
     
     open func protocolType() -> CFString! {
-        // Specified as non-nil in SCNetworkProtocol.c:166
         return SCNetworkProtocolGetProtocolType(self.netProtocol)
     }
 }

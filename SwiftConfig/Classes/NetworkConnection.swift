@@ -23,10 +23,9 @@ open class NetworkConnection {
         self._conn = conn
     }
     
-    public init?(serviceID: CFString) {
+    public init(serviceID: CFString) throws {
         var context = ConfigHelper<NetworkConnection, SCNetworkConnectionContext>.makeContext(self)
-        guard let conn = SCNetworkConnectionCreateWithServiceID(nil, serviceID, connectionCallout(conn:status:info:), &context) else { return nil }
-        self._conn = conn
+        self._conn = try SCNetworkConnectionCreateWithServiceID(nil, serviceID, connectionCallout(conn:status:info:), &context)~
     }
     
     open func userPreferences(selectionOptions: [CFString: CFPropertyList]? = nil) throws -> (serviceID: CFString, userOptions: [CFString: CFPropertyList]) {
@@ -39,7 +38,7 @@ open class NetworkConnection {
                     userOptions: userOptions.takeRetainedValue()%)
     }
     
-    open func serviceID() -> CFString? {
+    open func serviceID() -> CFString! {
         return SCNetworkConnectionCopyServiceID(self.conn)
     }
     

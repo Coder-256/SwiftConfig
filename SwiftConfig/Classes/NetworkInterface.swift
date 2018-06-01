@@ -17,8 +17,8 @@ open class NetworkInterface {
     
     // MARK: Interface configuration
     
-    open static func all() -> [NetworkInterface]! {
-        return (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])?.map { NetworkInterface($0) }
+    open static func all() throws -> [NetworkInterface] {
+        return try (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])~.map { NetworkInterface($0) }
     }
     
     open func supportedInterfaceTypes() -> [CFString]? {
@@ -37,16 +37,16 @@ open class NetworkInterface {
         return SCNetworkInterfaceGetBSDName(self.interface) as String?
     }
     
-    open func configuration() -> [CFString: CFPropertyList]? {
-        return SCNetworkInterfaceGetConfiguration(self.interface) as? [CFString: CFPropertyList]
+    open func configuration() throws -> [CFString: CFPropertyList] {
+        return try SCNetworkInterfaceGetConfiguration(self.interface)%
     }
     
     open func setConfiguration(_ newValue: [CFString: CFPropertyList]?) throws {
         try SCNetworkInterfaceSetConfiguration(self.interface, newValue as CFDictionary?)~
     }
     
-    open func configuration(extendedType: CFString) -> [CFString: CFPropertyList]? {
-        return SCNetworkInterfaceGetExtendedConfiguration(self.interface, extendedType) as? [CFString: CFPropertyList]
+    open func configuration(extendedType: CFString) throws -> [CFString: CFPropertyList] {
+        return try SCNetworkInterfaceGetExtendedConfiguration(self.interface, extendedType)%
     }
     
     open func setExtendedConfiguration(type: CFString, _ newValue: [CFString: CFPropertyList]?) throws {
@@ -62,7 +62,7 @@ open class NetworkInterface {
         return NetworkInterface(result)
     }
     
-    open func type() -> CFString? {
+    open func type() -> CFString! {
         return SCNetworkInterfaceGetInterfaceType(self.interface)
     }
     
@@ -75,21 +75,21 @@ open class NetworkInterface {
         var active:    Unmanaged<CFDictionary>?
         var available: Unmanaged<CFArray     >?
         try SCNetworkInterfaceCopyMediaOptions(self.interface, &current, &active, &available, filter)~
-        return try (current:   (current?  .takeRetainedValue() as? [CFString: CFPropertyList])%,
-                    active:    (active?   .takeRetainedValue() as? [CFString: CFPropertyList])%,
-                    available: (available?.takeRetainedValue() as? [CFString])%)
+        return try (current:   (current?  .takeRetainedValue() as? [CFString: CFPropertyList])~,
+                    active:    (active?   .takeRetainedValue() as? [CFString: CFPropertyList])~,
+                    available: (available?.takeRetainedValue() as? [CFString])~)
     }
     
-    open func mediaSubTypes() throws -> [CFString]? {
-        return SCNetworkInterfaceCopyMediaSubTypes(try self.mediaOptions().available as CFArray) as? [CFString]
-    }
-    
-    open func mediaOptions(subType: CFString) throws -> [CFString]? {
-        return SCNetworkInterfaceCopyMediaSubTypeOptions(try self.mediaOptions().available as CFArray, subType) as? [CFString]
+    open func mediaOptions(subType: CFString) throws -> [CFString] {
+        return try SCNetworkInterfaceCopyMediaSubTypeOptions(try self.mediaOptions().available as CFArray, subType)%
     }
     
     open func setMediaOptions(subType: CFString, _ newValue: [CFString]) throws {
         try SCNetworkInterfaceSetMediaOptions(self.interface, subType, newValue as CFArray)~
+    }
+    
+    open func mediaSubTypes() throws -> [CFString] {
+        return try SCNetworkInterfaceCopyMediaSubTypes(self.mediaOptions().available as CFArray)%
     }
     
     open func mtu() throws -> (current: Int32, min: Int32, max: Int32) {

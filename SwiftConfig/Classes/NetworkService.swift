@@ -19,8 +19,8 @@ open class NetworkService {
         try SCNetworkServiceAddProtocolType(self.service, protocolType)~
     }
     
-    open func protocols() -> [NetworkProtocol]? {
-        return (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])?.map { NetworkProtocol($0) }
+    open func protocols() throws -> [NetworkProtocol] {
+        return try (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])%.map { NetworkProtocol($0) }
     }
     
     open func establishDefault() throws {

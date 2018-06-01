@@ -27,9 +27,9 @@ open class NetworkSet {
         try SCNetworkSetContainsInterface(self.set, interface.interface)~
     }
     
-    open func services() -> [NetworkService]! {
-        guard let arr = (SCNetworkSetCopyServices(self.set) as? [SCNetworkService])?.map({ NetworkService($0) }) else { return nil }
-        guard let order = self.serviceOrder() else { return arr }
+    open func services() throws -> [NetworkService] {
+        let arr = try (SCNetworkSetCopyServices(self.set) as? [SCNetworkService])%.map { NetworkService($0) }
+        let order = try self.serviceOrder()
         return arr.sorted {
             guard let a = $0.serviceID,
                 let b = $1.serviceID,
@@ -40,7 +40,7 @@ open class NetworkSet {
     }
     
     open func name() -> String? {
-            return SCNetworkSetGetName(self.set) as String?
+        return SCNetworkSetGetName(self.set) as String?
     }
     
     open func setName(_ newValue: String?) throws {
@@ -51,8 +51,8 @@ open class NetworkSet {
         return SCNetworkSetGetSetID(self.set)
     }
     
-    open func serviceOrder() -> [CFString]! {
-        return SCNetworkSetGetServiceOrder(self.set) as? [CFString]
+    open func serviceOrder() throws -> [CFString] {
+        return try SCNetworkSetGetServiceOrder(self.set)%
     }
     
     open func setServiceOrder(_ newValue: [CFString]) {

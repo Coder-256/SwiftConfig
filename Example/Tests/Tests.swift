@@ -20,7 +20,7 @@ class Tests: XCTestCase {
         noError {
             guard let firstActive = try ConfigPreferences(name: "SwiftConfig")
                 .currentNetworkSet()?
-                .services()?
+                .services()
                 .first(where: { try $0.enabled() && $0.interface().active })?
                 .name() else { XCTFail(); return }
             

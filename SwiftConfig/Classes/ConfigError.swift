@@ -28,14 +28,14 @@ internal postfix func ~ <T>(_ optional: T?) throws -> T {
     return result
 }
 
-/// Guard let as?, else throw error from SystemConfiguration or CastError.failed if the cast fails
-internal postfix func % <T>(_ optional: AnyObject?) throws -> T {
-    guard let result = try optional~ as? T else { throw CastError.failed }
-    return result
-}
-
 /// Guard let, else throw CastError.failed
 internal postfix func % <T>(_ optional: T?) throws -> T {
     guard let result = optional else { throw CastError.failed }
+    return result
+}
+
+/// Guard let as?, else throw error from SystemConfiguration or CastError.failed if the cast fails
+internal postfix func % <T>(_ optional: AnyObject?) throws -> T {
+    guard let result = try optional~ as? T else { throw CastError.failed }
     return result
 }

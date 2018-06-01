@@ -122,7 +122,7 @@ open class ConfigPreferences {
         return (SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet])?.map { NetworkSet($0) }
     }
     
-    open func currentNetworkSet() -> NetworkSet? {
+    open func currentNetworkSet() -> NetworkSet! {
         guard let result = SCNetworkSetCopyCurrent(self.prefs) else { return nil }
         return NetworkSet(result)
     }
@@ -153,7 +153,7 @@ open class ConfigPreferences {
     
     // MARK: Bond
     
-    open func bondInterfaces() -> [BondNetworkInterface]? {
+    open func bondInterfaces() -> [BondNetworkInterface]! {
         return (SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
     }
     
