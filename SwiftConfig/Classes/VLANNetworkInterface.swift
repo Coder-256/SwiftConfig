@@ -23,6 +23,10 @@ open class VLANNetworkInterface: NetworkInterface {
         return NetworkInterface(result)
     }
     
+    open func tag() -> Int! {
+        return (SCVLANInterfaceGetTag(self.interface) as NSNumber?)?.intValue
+    }
+    
     open func set(physical: NetworkInterface? = nil, tag tagValue: Int? = nil) throws {
         let tag: CFNumber
         if let tagValue = tagValue {
