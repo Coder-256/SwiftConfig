@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration.CaptiveNetwork
 
-open class CaptiveNetworkManager {
+open class CaptiveNetworkManager: Hashable, Equatable {
     public enum InterfaceError: Error {
         case unsupported
         case gotNil
@@ -47,5 +47,13 @@ open class CaptiveNetworkManager {
         } else {
             return CNMarkPortalOffline(self.interfaceName)
         }
+    }
+
+    open var hashValue: Int {
+        return self.interface.hashValue
+    }
+
+    open static func == (lhs: CaptiveNetworkManager, rhs: CaptiveNetworkManager) -> Bool {
+        return lhs.interface == rhs.interface
     }
 }

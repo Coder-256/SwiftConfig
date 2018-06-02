@@ -35,8 +35,8 @@ open class BondNetworkInterface: NetworkInterface {
     }
 
     open func memberInterfaces() -> [NetworkInterface]! {
-            return (SCBondInterfaceGetMemberInterfaces(self.interface) as? [SCNetworkInterface])?
-                .map { NetworkInterface($0) }
+        return (SCBondInterfaceGetMemberInterfaces(self.interface) as? [SCNetworkInterface])?
+            .map { NetworkInterface($0) }
     }
 
     open func setMemberInterfaces(_ newValue: [NetworkInterface]) throws {
