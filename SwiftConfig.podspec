@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftConfig'
-  s.version          = '1.0.10'
+  s.version          = '1.1.0'
   s.summary          = 'A simple, object-oriented wrapper for SystemConfiguration.'
 
 # This description is used to generate tags and improve search results.

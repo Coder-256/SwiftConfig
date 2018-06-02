@@ -188,7 +188,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/bash;
 			shellScript = "if which swiftlint >/dev/null; then\n    echo -n \"SwiftLint \"\n    swiftlint version\n    swiftlint --path \"${PROJECT_DIR}/../\"\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 			showEnvVarsInLog = 0;
 		};
