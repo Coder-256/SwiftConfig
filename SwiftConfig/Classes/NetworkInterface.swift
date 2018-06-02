@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkInterface: Hashable, Equatable {
+open class NetworkInterface: Hashable, Equatable, CustomStringConvertible {
     open let interface: SCNetworkInterface
 
     public init(_ interface: SCNetworkInterface) {
@@ -126,5 +126,9 @@ open class NetworkInterface: Hashable, Equatable {
 
     open static func == (lhs: NetworkInterface, rhs: NetworkInterface) -> Bool {
         return lhs.interface == rhs.interface
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.interface) as String? ?? String(describing: self.interface)
     }
 }

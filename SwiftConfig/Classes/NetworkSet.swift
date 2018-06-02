@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkSet: Hashable, Equatable {
+open class NetworkSet: Hashable, Equatable, CustomStringConvertible {
     open let set: SCNetworkSet
 
     public init(_ set: SCNetworkSet) {
@@ -74,5 +74,9 @@ open class NetworkSet: Hashable, Equatable {
 
     open static func == (lhs: NetworkSet, rhs: NetworkSet) -> Bool {
         return lhs.set == rhs.set
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.set) as String? ?? String(describing: self.set)
     }
 }

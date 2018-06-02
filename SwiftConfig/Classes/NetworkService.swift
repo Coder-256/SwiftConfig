@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkService: Hashable, Equatable {
+open class NetworkService: Hashable, Equatable, CustomStringConvertible {
     open let service: SCNetworkService
 
     public init(_ service: SCNetworkService) {
@@ -71,5 +71,9 @@ open class NetworkService: Hashable, Equatable {
 
     open static func == (lhs: NetworkService, rhs: NetworkService) -> Bool {
         return lhs.service == rhs.service
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.service) as String? ?? String(describing: self.service)
     }
 }

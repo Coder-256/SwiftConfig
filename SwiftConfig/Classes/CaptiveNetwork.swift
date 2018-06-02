@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration.CaptiveNetwork
 
-open class CaptiveNetworkManager: Hashable, Equatable {
+open class CaptiveNetworkManager: Hashable, Equatable, CustomStringConvertible {
     public enum InterfaceError: Error {
         case unsupported
         case gotNil
@@ -55,5 +55,12 @@ open class CaptiveNetworkManager: Hashable, Equatable {
 
     open static func == (lhs: CaptiveNetworkManager, rhs: CaptiveNetworkManager) -> Bool {
         return lhs.interface == rhs.interface
+    }
+
+    open var description: String {
+        if let interfaceDescription = CFCopyDescription(self.interface) as String? {
+            return "CaptiveNetwork(interface: \(interfaceDescription))"
+        }
+        return String(describing: self.interface)
     }
 }

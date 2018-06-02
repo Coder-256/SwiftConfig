@@ -10,7 +10,7 @@ import Foundation
 import SystemConfiguration
 
 open class BondNetworkInterface: NetworkInterface {
-    open class Status {
+    open class Status: Equatable, Hashable, CustomStringConvertible {
         open let status: SCBondStatus
 
         public init(_ status: SCBondStatus) {
@@ -24,6 +24,18 @@ open class BondNetworkInterface: NetworkInterface {
         open func memberInterfaces() -> [NetworkInterface]! {
             return (SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface])?
                 .lazy.map { NetworkInterface($0) }
+        }
+
+        open var hashValue: Int {
+            return self.status.hashValue
+        }
+
+        open static func == (lhs: BondNetworkInterface.Status, rhs: BondNetworkInterface.Status) -> Bool {
+            return lhs.status == rhs.status
+        }
+
+        open var description: String {
+            return CFCopyDescription(self.status) as String? ?? String(describing: self.status)
         }
     }
 

@@ -17,7 +17,7 @@ private func reachabilityCallout(target: SCNetworkReachability,
     }
 }
 
-open class NetworkReachability: Hashable, Equatable {
+open class NetworkReachability: Hashable, Equatable, CustomStringConvertible {
     private var _target: SCNetworkReachability?
     // swiftlint:disable:next force_unwrapping
     open var target: SCNetworkReachability { return self._target! }
@@ -78,5 +78,9 @@ open class NetworkReachability: Hashable, Equatable {
 
     open static func == (lhs: NetworkReachability, rhs: NetworkReachability) -> Bool {
         return lhs.target == rhs.target
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.target) as String? ?? String(describing: self.target)
     }
 }

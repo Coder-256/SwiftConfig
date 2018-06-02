@@ -17,7 +17,7 @@ private func configCallout(prefs: SCPreferences,
     }
 }
 
-open class ConfigPreferences: Hashable, Equatable {
+open class ConfigPreferences: Hashable, Equatable, CustomStringConvertible {
     public typealias Key = CFString
     public typealias Value = CFPropertyList
 
@@ -188,5 +188,9 @@ open class ConfigPreferences: Hashable, Equatable {
 
     open static func == (lhs: ConfigPreferences, rhs: ConfigPreferences) -> Bool {
         return lhs.prefs == rhs.prefs
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.prefs) as String? ?? String(describing: self.prefs)
     }
 }

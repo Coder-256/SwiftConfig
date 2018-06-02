@@ -17,7 +17,7 @@ private func connectionCallout(conn: SCNetworkConnection,
     }
 }
 
-open class NetworkConnection: Hashable, Equatable {
+open class NetworkConnection: Hashable, Equatable, CustomStringConvertible {
     private var _conn: SCNetworkConnection?
     // swiftlint:disable:next force_unwrapping
     open var conn: SCNetworkConnection { return self._conn! }
@@ -80,5 +80,9 @@ open class NetworkConnection: Hashable, Equatable {
 
     open static func == (lhs: NetworkConnection, rhs: NetworkConnection) -> Bool {
         return lhs.conn == rhs.conn
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.conn) as String? ?? String(describing: self.conn)
     }
 }

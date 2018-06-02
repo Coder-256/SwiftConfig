@@ -18,7 +18,7 @@ private func storeCallout(store: SCDynamicStore,
     }
 }
 
-open class DynamicStore: Hashable, Equatable {
+open class DynamicStore: Hashable, Equatable, CustomStringConvertible {
     public typealias Key = CFString
     public typealias Value = CFPropertyList
 
@@ -156,5 +156,9 @@ open class DynamicStore: Hashable, Equatable {
 
     open static func == (lhs: DynamicStore, rhs: DynamicStore) -> Bool {
         return lhs.store == rhs.store
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.store) as String? ?? String(describing: self.store)
     }
 }
