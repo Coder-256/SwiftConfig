@@ -21,7 +21,7 @@ class Tests: XCTestCase {
             guard let firstActive = try ConfigPreferences(name: "SwiftConfig")
                 .currentNetworkSet()?
                 .services()
-                .first(where: { try $0.enabled() && $0.interface().active })?
+                .first(where: { try $0.enabled() && $0.interface().active() })?
                 .name() else { XCTFail("Got nil"); return }
 
             print("First active service: \(firstActive)")

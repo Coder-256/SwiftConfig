@@ -115,7 +115,7 @@ open class NetworkInterface: Hashable, Equatable {
         try SCNetworkInterfaceForceConfigurationRefresh(interface)~
     }
 
-    open var active: Bool {
+    open func active() -> Bool {
         guard let bsdName = self.bsdName() else { return false }
         return _swiftconfig_check_active(bsdName as String)
     }
