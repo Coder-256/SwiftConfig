@@ -11,7 +11,7 @@ language: objective-c
 # before_install:
 #   - gem install bundler
 install:
-  - brew install swiftlint
+  - brew upgrade swiftlint
 #   - bundle install
 # before_script:
 #   - bundle exec pod install --project-directory=Example
