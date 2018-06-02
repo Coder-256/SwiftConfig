@@ -32,8 +32,8 @@ open class NetworkSet: Hashable, Equatable {
         let arr = try (SCNetworkSetCopyServices(self.set) as? [SCNetworkService])%.lazy.map { NetworkService($0) }
         let order = try self.serviceOrder()
         return arr.lazy.sorted {
-            guard let lhs = $0.serviceID,
-                let rhs = $1.serviceID,
+            guard let lhs = $0.serviceID(),
+                let rhs = $1.serviceID(),
                 let lIndex = order.index(of: lhs),
                 let rIndex = order.index(of: rhs) else { return false }
             return lIndex < rIndex

@@ -137,11 +137,11 @@ open class DynamicStore: Hashable, Equatable {
             return DHCPInfoGetOptionData(self.info, code)
         }
 
-        open var leaseStart: CFDate? {
+        open func leaseStart() -> CFDate? {
             return DHCPInfoGetLeaseStartTime(self.info)
         }
 
-        open var leaseExpiration: CFDate? {
+        open func leaseExpiration() -> CFDate? {
             return DHCPInfoGetLeaseExpirationTime(self.info)
         }
     }

@@ -53,7 +53,7 @@ open class NetworkService: Hashable, Equatable {
         return try NetworkProtocol(SCNetworkServiceCopyProtocol(self.service, protocolType)~)
     }
 
-    open var serviceID: CFString! {
+    open func serviceID() -> CFString! {
         return SCNetworkServiceGetServiceID(self.service)
     }
 
