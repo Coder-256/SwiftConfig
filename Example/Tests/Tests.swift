@@ -22,7 +22,7 @@ class Tests: XCTestCase {
                 .currentNetworkSet()?
                 .services()
                 .first(where: { try $0.enabled() && $0.interface().active() })?
-                .name() else { XCTFail("Got nil"); return }
+                .name() else { XCTFail("No active service found. Are you connected to the internet?"); return }
 
             print("First active service: \(firstActive)")
         }
