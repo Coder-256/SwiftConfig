@@ -10,48 +10,44 @@ import Foundation
 import SystemConfiguration
 
 open class VLANNetworkInterface: NetworkInterface {
-    static var physicalInterfaces: [VLANNetworkInterface]? {
-        guard let arr = SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCVLANInterface] else { return nil }
-        return arr.map { VLANNetworkInterface($0) }
+    open static var availablePhysicalInterfaces: [NetworkInterface]! {
+        return (SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCNetworkInterface])?.map { NetworkInterface($0) }
     }
-    
-    func remove() {
-        SCVLANInterfaceRemove(self.interface)
+
+    open func remove() throws {
+        try SCVLANInterfaceRemove(self.interface)~
     }
-    
-    var physical: VLANNetworkInterface? {
-        get {
-            guard let result = SCVLANInterfaceGetPhysicalInterface(self.interface) else { return nil }
-            return VLANNetworkInterface(result)
-        } set {
-            if let newValue = newValue, let tag = SCVLANInterfaceGetTag(self.interface) {
-                SCVLANInterfaceSetPhysicalInterfaceAndTag(self.interface, newValue.interface, tag)
-            }
+
+    open func physical() -> NetworkInterface! {
+        guard let result = SCVLANInterfaceGetPhysicalInterface(self.interface) else { return nil }
+        return NetworkInterface(result)
+    }
+
+    open func tag() -> Int! {
+        return (SCVLANInterfaceGetTag(self.interface) as NSNumber?)?.intValue
+    }
+
+    open func set(physical: NetworkInterface? = nil, tag tagValue: Int? = nil) throws {
+        let tag: CFNumber
+        if let tagValue = tagValue {
+            tag = NSNumber(value: tagValue)
+        } else {
+            // swiftlint:disable:next force_unwrapping
+            tag = SCVLANInterfaceGetTag(self.interface)!
         }
+
+        try SCVLANInterfaceSetPhysicalInterfaceAndTag(self.interface, (physical ?? self.physical()).interface, tag)~
     }
-    
-    var tag: Int? {
-        get {
-            guard let number = SCVLANInterfaceGetTag(self.interface) else { return nil }
-            return (number as NSNumber).intValue
-        } set {
-            if let newValue = newValue, let physical = self.physical {
-                SCVLANInterfaceSetPhysicalInterfaceAndTag(self.interface, physical.interface, NSNumber(value: newValue) as CFNumber)
-            }
-        }
+
+    open func options() -> [CFString: CFPropertyList]? {
+        return SCVLANInterfaceGetOptions(self.interface) as? [CFString: CFPropertyList]
     }
-    
-    var options: [CFString: CFPropertyList]? {
-        get {
-            return SCVLANInterfaceGetOptions(self.interface) as? [CFString: CFPropertyList]
-        } set {
-            if let options = newValue {
-                SCVLANInterfaceSetOptions(self.interface, options as CFDictionary)
-            }
-        }
+
+    open func setOptions(_ newValue: [CFString: CFPropertyList]) throws {
+        try SCVLANInterfaceSetOptions(self.interface, newValue as CFDictionary)~
     }
-    
-    func setLocalizedDisplayName(_ name: String) {
-        SCVLANInterfaceSetLocalizedDisplayName(self.interface, name as CFString)
+
+    open func setLocalizedDisplayName(_ name: String) throws {
+        try SCVLANInterfaceSetLocalizedDisplayName(self.interface, name as CFString)~
     }
 }

@@ -9,60 +9,66 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkService {
+open class NetworkService: Hashable, Equatable {
     open let service: SCNetworkService
+
     public init(_ service: SCNetworkService) {
         self.service = service
     }
-    
-    @discardableResult open func addProtocolType(_ protocolType: CFString) -> Bool {
-        return SCNetworkServiceAddProtocolType(self.service, protocolType)
+
+    open func addProtocolType(_ protocolType: CFString) throws {
+        try SCNetworkServiceAddProtocolType(self.service, protocolType)~
     }
-    
-    open var protocols: [NetworkProtocol]? {
-        guard let arr = SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol] else { return nil }
-        return arr.map { NetworkProtocol($0) }
+
+    open func protocols() throws -> [NetworkProtocol] {
+        return try (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])%.map { NetworkProtocol($0) }
     }
-    
-    open func establishDefault() -> Bool {
-        return SCNetworkServiceEstablishDefaultConfiguration(self.service)
+
+    open func establishDefault() throws {
+        try SCNetworkServiceEstablishDefaultConfiguration(self.service)~
     }
-    
-    open var enabled: Bool {
-        get {
-            return SCNetworkServiceGetEnabled(self.service)
-        } set {
-            SCNetworkServiceSetEnabled(self.service, newValue)
-        }
+
+    open func enabled() -> Bool {
+        return SCNetworkServiceGetEnabled(self.service)
     }
-    
-    open var interface: NetworkInterface? {
-        guard let interface = SCNetworkServiceGetInterface(self.service) else { return nil }
-        return NetworkInterface(interface)
+
+    open func setEnabled(_ newValue: Bool) throws {
+        try SCNetworkServiceSetEnabled(self.service, newValue)~
     }
-    
-    open var name: String? {
-        get {
-            return SCNetworkServiceGetName(self.service) as String?
-        } set {
-            SCNetworkServiceSetName(self.service, name as CFString?)
-        }
+
+    open func interface() throws -> NetworkInterface {
+        return try NetworkInterface(SCNetworkServiceGetInterface(self.service)~)
     }
-    
-    open func copyProtocol(protocolType: CFString) -> NetworkProtocol? {
-        guard let result = SCNetworkServiceCopyProtocol(self.service, protocolType) else { return nil }
-        return NetworkProtocol(result)
+
+    open func name() -> String? {
+        return SCNetworkServiceGetName(self.service) as String?
     }
-    
-    open var serviceID: CFString? {
+
+    open func setName(_ newValue: String?) throws {
+        try SCNetworkServiceSetName(self.service, newValue as CFString?)~
+    }
+
+    open func copyProtocol(protocolType: CFString) throws -> NetworkProtocol {
+        return try NetworkProtocol(SCNetworkServiceCopyProtocol(self.service, protocolType)~)
+    }
+
+    open var serviceID: CFString! {
         return SCNetworkServiceGetServiceID(self.service)
     }
-    
-    open func remove() -> Bool {
-        return SCNetworkServiceRemove(self.service)
+
+    open func remove() throws {
+        try SCNetworkServiceRemove(self.service)~
     }
-    
-    open func remove(protocolType: CFString) -> Bool {
-        return SCNetworkServiceRemoveProtocolType(self.service, protocolType)
+
+    open func remove(protocolType: CFString) throws {
+        try SCNetworkServiceRemoveProtocolType(self.service, protocolType)~
+    }
+
+    open var hashValue: Int {
+        return self.service.hashValue
+    }
+
+    open static func == (lhs: NetworkService, rhs: NetworkService) -> Bool {
+        return lhs.service == rhs.service
     }
 }

@@ -12,46 +12,46 @@ import SystemConfiguration
 open class BondNetworkInterface: NetworkInterface {
     open class Status {
         open let status: SCBondStatus
+
         public init(_ status: SCBondStatus) {
             self.status = status
         }
-        
-        open func interfaceStatus(_ interface: SCBondInterface? = nil) -> CFDictionary? {
-            return SCBondStatusGetInterfaceStatus(self.status, interface)
+
+        open func interfaceStatus(_ interface: BondNetworkInterface? = nil) -> CFDictionary! {
+            return SCBondStatusGetInterfaceStatus(self.status, interface?.interface)
         }
-        
-        open var memberInterfaces: [BondNetworkInterface]? {
-            guard let arr = SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface] else { return nil }
-            return arr.map { BondNetworkInterface($0) }
-        }
-    }
-    
-    open func remove() -> Bool {
-        return SCBondInterfaceRemove(self.interface)
-    }
-    
-    open var status: Status? {
-        guard let status = SCBondInterfaceCopyStatus(self.interface) else { return nil }
-        return Status(status)
-    }
-    
-    open var memberInterfaces: [BondNetworkInterface]? {
-        get {
-            return SCBondInterfaceGetMemberInterfaces(self.interface) as? [BondNetworkInterface]
-        } set {
-            SCBondInterfaceSetMemberInterfaces(self.interface, (newValue ?? []) as CFArray)
+
+        open func memberInterfaces() -> [NetworkInterface]! {
+            return (SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface])?.map { NetworkInterface($0) }
         }
     }
-    
-    open var options: CFDictionary? {
-        get {
-            return SCBondInterfaceGetOptions(self.interface)
-        } set {
-            SCBondInterfaceSetOptions(self.interface, newValue ?? [:] as CFDictionary)
-        }
+
+    open func remove() throws {
+        try SCBondInterfaceRemove(self.interface)~
     }
-    
-    open func setLocalizedDisplayName(_ name: CFString) {
-        SCBondInterfaceSetLocalizedDisplayName(self.interface, name)
+
+    open func status() throws -> Status {
+        return try Status(SCBondInterfaceCopyStatus(self.interface)~)
+    }
+
+    open func memberInterfaces() -> [NetworkInterface]! {
+            return (SCBondInterfaceGetMemberInterfaces(self.interface) as? [SCNetworkInterface])?
+                .map { NetworkInterface($0) }
+    }
+
+    open func setMemberInterfaces(_ newValue: [NetworkInterface]) throws {
+        try SCBondInterfaceSetMemberInterfaces(self.interface, newValue.map { $0.interface } as CFArray)~
+    }
+
+    open func options() -> [CFString: CFPropertyList]! {
+        return SCBondInterfaceGetOptions(self.interface) as? [CFString: CFPropertyList]
+    }
+
+    open func setOptions(_ newValue: [CFString: CFPropertyList]) throws {
+        try SCBondInterfaceSetOptions(self.interface, newValue as CFDictionary)~
+    }
+
+    open func setLocalizedDisplayName(_ name: CFString) throws {
+        try SCBondInterfaceSetLocalizedDisplayName(self.interface, name)~
     }
 }

@@ -9,65 +9,74 @@
 import Foundation
 import SystemConfiguration
 
-fileprivate func reachabilityCallout(target: SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) {
+private func reachabilityCallout(target: SCNetworkReachability,
+                                 flags: SCNetworkReachabilityFlags,
+                                 info: UnsafeMutableRawPointer?) {
     if let info = info {
         ConfigHelper<NetworkReachability, SCNetworkReachabilityContext>.decodeContext(info).callout?(flags)
     }
 }
 
-open class NetworkReachability {
+open class NetworkReachability: Hashable, Equatable {
     private var _target: SCNetworkReachability?
+    // swiftlint:disable:next force_unwrapping
     open var target: SCNetworkReachability { return self._target! }
-    open var callout: ((SCNetworkReachabilityFlags) -> ())?
-    
-    @discardableResult private func setupCallout() -> Bool {
+    open var callout: ((SCNetworkReachabilityFlags) -> Void)?
+
+    private func setupCallout() {
         var context = ConfigHelper<NetworkReachability, SCNetworkReachabilityContext>.makeContext(self)
-        return SCNetworkReachabilitySetCallback(self.target, reachabilityCallout(target:flags:info:), &context)
+        guard SCNetworkReachabilitySetCallback(self.target,
+                                               reachabilityCallout(target:flags:info:),
+                                               &context) else { fatalError("SCNetworkReachabilitySetCallback failed") }
     }
-    
+
     public init(_ target: SCNetworkReachability) {
         self._target = target
         setupCallout()
     }
-    
-    public init?(address: sockaddr) {
+
+    public init(address: sockaddr) throws {
         var addrCopy = address
-        guard let result = SCNetworkReachabilityCreateWithAddress(nil, &addrCopy) else { return nil }
-        self._target = result
+        self._target = try SCNetworkReachabilityCreateWithAddress(nil, &addrCopy)~
         setupCallout()
     }
-    
+
     // If there's a better way to do this, let me know!
-    public init?(localAddress: sockaddr?, remoteAddress: sockaddr?) {
-        let result: SCNetworkReachability?
+    public init(localAddress: sockaddr?, remoteAddress: sockaddr?) throws {
         if var localCopy = localAddress {
             if var remoteCopy = remoteAddress {
-                result = SCNetworkReachabilityCreateWithAddressPair(nil, &localCopy, &remoteCopy)
+                self._target = try SCNetworkReachabilityCreateWithAddressPair(nil, &localCopy, &remoteCopy)~
             } else {
-                result = SCNetworkReachabilityCreateWithAddressPair(nil, &localCopy, nil)
+                self._target = try SCNetworkReachabilityCreateWithAddressPair(nil, &localCopy, nil)~
             }
         } else {
             if var remoteCopy = remoteAddress {
-                result = SCNetworkReachabilityCreateWithAddressPair(nil, nil, &remoteCopy)
+                self._target = try SCNetworkReachabilityCreateWithAddressPair(nil, nil, &remoteCopy)~
             } else {
-                return nil
+                self._target = try SCNetworkReachabilityCreateWithAddressPair(nil, nil, nil)~
             }
         }
-        
-        guard let target = result else { return }
-        self._target = target
+
         setupCallout()
     }
-    
-    public init?(nodeName: String) {
-        guard let result = SCNetworkReachabilityCreateWithName(nil, nodeName) else { return nil }
-        self._target = result
+
+    public init(nodeName: String) throws {
+        self._target = try SCNetworkReachabilityCreateWithName(nil, nodeName)~
         setupCallout()
     }
-    
-    open var flags: SCNetworkReachabilityFlags? {
+
+    open func flags() -> SCNetworkReachabilityFlags {
         var flags = SCNetworkReachabilityFlags()
-        guard SCNetworkReachabilityGetFlags(self.target, &flags) else { return nil }
+        guard SCNetworkReachabilityGetFlags(self.target,
+                                            &flags) else { fatalError("SCNetworkReachabilityGetFlags failed") }
         return flags
+    }
+
+    open var hashValue: Int {
+        return self.target.hashValue
+    }
+
+    open static func == (lhs: NetworkReachability, rhs: NetworkReachability) -> Bool {
+        return lhs.target == rhs.target
     }
 }

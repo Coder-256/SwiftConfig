@@ -9,8 +9,12 @@
 import Foundation
 import SystemConfiguration
 
-protocol ConfigContext {
-    init(version: CFIndex, info: UnsafeMutableRawPointer?, retain: (@convention(c) (UnsafeRawPointer) -> UnsafeRawPointer)?, release: (@convention(c) (UnsafeRawPointer) -> Swift.Void)?, copyDescription: (@convention(c) (UnsafeRawPointer) -> Unmanaged<CFString>)?)
+internal protocol ConfigContext {
+    init(version: CFIndex,
+         info: UnsafeMutableRawPointer?,
+         retain: (@convention(c) (UnsafeRawPointer) -> UnsafeRawPointer)?,
+         release: (@convention(c) (UnsafeRawPointer) -> Swift.Void)?,
+         copyDescription: (@convention(c) (UnsafeRawPointer) -> Unmanaged<CFString>)?)
 }
 
 extension SCDynamicStoreContext: ConfigContext {}
@@ -18,13 +22,13 @@ extension SCPreferencesContext: ConfigContext {}
 extension SCNetworkConnectionContext: ConfigContext {}
 extension SCNetworkReachabilityContext: ConfigContext {}
 
-class ConfigHelper<Class: AnyObject, Context: ConfigContext> {
-    static func makeContext(_ instance: Class) -> Context {
+internal class ConfigHelper<Class: AnyObject, Context: ConfigContext> {
+    internal static func makeContext(_ instance: Class) -> Context {
         let info = UnsafeMutableRawPointer(Unmanaged.passRetained(instance).toOpaque())
         return Context(version: 0, info: info, retain: nil, release: nil, copyDescription: nil)
     }
-    
-    static func decodeContext(_ context: UnsafeMutableRawPointer) -> Class {
+
+    internal static func decodeContext(_ context: UnsafeMutableRawPointer) -> Class {
         return Unmanaged<Class>.fromOpaque(context).takeUnretainedValue()
     }
 }

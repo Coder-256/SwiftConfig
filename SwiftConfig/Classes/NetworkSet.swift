@@ -9,56 +9,70 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkSet {
+open class NetworkSet: Hashable, Equatable {
     open let set: SCNetworkSet
+
     public init(_ set: SCNetworkSet) {
         self.set = set
     }
-    
-    open func add(service: NetworkService) -> Bool {
-        return SCNetworkSetAddService(self.set, service.service)
+
+    open func add(service: NetworkService) throws {
+        try SCNetworkSetAddService(self.set, service.service)~
     }
-    
-    open func remove(service: NetworkService) -> Bool {
-        return SCNetworkSetRemoveService(self.set, service.service)
+
+    open func remove(service: NetworkService) throws {
+        try SCNetworkSetRemoveService(self.set, service.service)~
     }
-    
-    open func contains(interface: NetworkInterface) -> Bool {
-        return SCNetworkSetContainsInterface(self.set, interface.interface)
+
+    open func contains(interface: NetworkInterface) throws {
+        try SCNetworkSetContainsInterface(self.set, interface.interface)~
     }
-    
-    open var services: [NetworkService]? {
-        guard let arr = SCNetworkSetCopyServices(self.set) as? [SCNetworkService] else { return nil }
-        return arr.map { NetworkService($0) }
-    }
-    
-    open var name: String? {
-        get {
-            return SCNetworkSetGetName(self.set) as String?
-        } set {
-            SCNetworkSetSetName(self.set, newValue as CFString?)
+
+    open func services() throws -> [NetworkService] {
+        let arr = try (SCNetworkSetCopyServices(self.set) as? [SCNetworkService])%.map { NetworkService($0) }
+        let order = try self.serviceOrder()
+        return arr.sorted {
+            guard let lhs = $0.serviceID,
+                let rhs = $1.serviceID,
+                let lIndex = order.index(of: lhs),
+                let rIndex = order.index(of: rhs) else { return false }
+            return lIndex < rIndex
         }
     }
-    
-    open var setID: CFString? {
+
+    open func name() -> String? {
+        return SCNetworkSetGetName(self.set) as String?
+    }
+
+    open func setName(_ newValue: String?) throws {
+        try SCNetworkSetSetName(self.set, newValue as CFString?)~
+    }
+
+    open func setID() -> CFString! {
         return SCNetworkSetGetSetID(self.set)
     }
-    
-    open var serviceOrder: [CFString]? {
-        get {
-            return SCNetworkSetGetServiceOrder(self.set) as? [CFString]
-        } set {
-            if let newValue = newValue {
-                SCNetworkSetSetServiceOrder(self.set, newValue as CFArray)
-            }
-        }
+
+    open func serviceOrder() throws -> [CFString] {
+        return try SCNetworkSetGetServiceOrder(self.set)%
     }
-    
-    open func makeCurrent() -> Bool {
-        return SCNetworkSetSetCurrent(self.set)
+
+    open func setServiceOrder(_ newValue: [CFString]) {
+        SCNetworkSetSetServiceOrder(self.set, newValue as CFArray)
     }
-    
-    open func remove() -> Bool {
-        return SCNetworkSetRemove(self.set)
+
+    open func makeCurrent() throws {
+        try SCNetworkSetSetCurrent(self.set)~
+    }
+
+    open func remove() throws {
+        try SCNetworkSetRemove(self.set)~
+    }
+
+    open var hashValue: Int {
+        return self.set.hashValue
+    }
+
+    open static func == (lhs: NetworkSet, rhs: NetworkSet) -> Bool {
+        return lhs.set == rhs.set
     }
 }
