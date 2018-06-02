@@ -21,7 +21,8 @@ open class NetworkService: Hashable, Equatable {
     }
 
     open func protocols() throws -> [NetworkProtocol] {
-        return try (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])%.map { NetworkProtocol($0) }
+        return try (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])%
+            .lazy.map { NetworkProtocol($0) }
     }
 
     open func establishDefault() throws {

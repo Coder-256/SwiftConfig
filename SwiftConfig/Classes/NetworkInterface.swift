@@ -19,7 +19,7 @@ open class NetworkInterface: Hashable, Equatable {
     // MARK: Interface configuration
 
     open static func all() throws -> [NetworkInterface] {
-        return try (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])~.map { NetworkInterface($0) }
+        return try (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])~.lazy.map { NetworkInterface($0) }
     }
 
     open func supportedInterfaceTypes() -> [CFString]? {

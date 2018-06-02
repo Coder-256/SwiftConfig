@@ -22,7 +22,8 @@ open class BondNetworkInterface: NetworkInterface {
         }
 
         open func memberInterfaces() -> [NetworkInterface]! {
-            return (SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface])?.map { NetworkInterface($0) }
+            return (SCBondStatusGetMemberInterfaces(self.status) as? [SCBondInterface])?
+                .lazy.map { NetworkInterface($0) }
         }
     }
 
@@ -36,7 +37,7 @@ open class BondNetworkInterface: NetworkInterface {
 
     open func memberInterfaces() -> [NetworkInterface]! {
         return (SCBondInterfaceGetMemberInterfaces(self.interface) as? [SCNetworkInterface])?
-            .map { NetworkInterface($0) }
+            .lazy.map { NetworkInterface($0) }
     }
 
     open func setMemberInterfaces(_ newValue: [NetworkInterface]) throws {

@@ -125,7 +125,7 @@ open class ConfigPreferences: Hashable, Equatable {
     }
 
     open func networkSets() -> [NetworkSet]! {
-        return (SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet])?.map { NetworkSet($0) }
+        return (SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet])?.lazy.map { NetworkSet($0) }
     }
 
     open func currentNetworkSet() -> NetworkSet! {
@@ -138,7 +138,7 @@ open class ConfigPreferences: Hashable, Equatable {
     }
 
     open var services: [NetworkService]! {
-        return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.map { NetworkService($0) }
+        return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.lazy.map { NetworkService($0) }
     }
 
     open func setComputerName(name: CFString?, nameEncoding: CFStringEncoding) throws {
@@ -160,12 +160,12 @@ open class ConfigPreferences: Hashable, Equatable {
     // MARK: Bond
 
     open func bondInterfaces() -> [BondNetworkInterface]! {
-        return (SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
+        return (SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface])?.lazy.map { BondNetworkInterface($0) }
     }
 
     open var availableBondMemberInterfaces: [NetworkInterface]! {
         return (SCBondInterfaceCopyAvailableMemberInterfaces(self.prefs) as? [SCNetworkInterface])?
-            .map { NetworkInterface($0) }
+            .lazy.map { NetworkInterface($0) }
     }
 
     open func bondCreate() throws -> BondNetworkInterface {
@@ -175,7 +175,7 @@ open class ConfigPreferences: Hashable, Equatable {
     // MARK: VLAN
 
     open var vlanInterfaces: [VLANNetworkInterface]! {
-        return (SCVLANInterfaceCopyAll(self.prefs) as? [SCVLANInterface])?.map { VLANNetworkInterface($0) }
+        return (SCVLANInterfaceCopyAll(self.prefs) as? [SCVLANInterface])?.lazy.map { VLANNetworkInterface($0) }
     }
 
     open func vlanCreate(physical: VLANNetworkInterface, tag: CFNumber) throws -> VLANNetworkInterface {

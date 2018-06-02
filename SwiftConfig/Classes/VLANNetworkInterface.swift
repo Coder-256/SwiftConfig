@@ -11,7 +11,8 @@ import SystemConfiguration
 
 open class VLANNetworkInterface: NetworkInterface {
     open static var availablePhysicalInterfaces: [NetworkInterface]! {
-        return (SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCNetworkInterface])?.map { NetworkInterface($0) }
+        return (SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCNetworkInterface])?
+            .lazy.map { NetworkInterface($0) }
     }
 
     open func remove() throws {
