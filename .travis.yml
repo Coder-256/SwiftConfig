@@ -10,7 +10,10 @@ language: objective-c
 # podfile: Example/Podfile
 # before_install:
 #   - gem install bundler
+install:
+  - brew install swiftlint
 #   - bundle install
+# before_script:
 #   - bundle exec pod install --project-directory=Example
 script:
   - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/SwiftConfig.xcworkspace -scheme SwiftConfig-Example | tee xcode.log | xcpretty
