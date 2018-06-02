@@ -18,13 +18,14 @@ class Tests: XCTestCase {
 
     func testActiveServices() {
         noError {
-            guard let firstActive = try ConfigPreferences(name: "SwiftConfig")
+            guard let services = try ConfigPreferences(name: "SwiftConfig")
                 .currentNetworkSet()?
                 .services()
-                .first(where: { try $0.enabled() && $0.interface().active() })?
-                .name() else { XCTFail("No active service found. Are you connected to the internet?"); return }
+                .filter({ try $0.enabled() && $0.interface().active() })
+                .map({ $0.name() ?? "Unknown" }) else { XCTFail("Unable to get active services"); return }
 
-            print("First active service: \(firstActive)")
+            XCTAssertFalse(services.isEmpty, "No active services found. Are you connected to the internet?")
+            print("Active services: \(services.joined(separator: ", "))")
         }
     }
 }
