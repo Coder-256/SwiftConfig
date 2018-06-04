@@ -78,7 +78,7 @@ open class NetworkConnection: Hashable, Equatable, CustomStringConvertible {
         return self.conn.hashValue
     }
 
-    open static func == (lhs: NetworkConnection, rhs: NetworkConnection) -> Bool {
+    public static func == (lhs: NetworkConnection, rhs: NetworkConnection) -> Bool {
         return lhs.conn == rhs.conn
     }
 

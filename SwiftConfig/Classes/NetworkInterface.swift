@@ -10,7 +10,7 @@ import Foundation
 import SystemConfiguration
 
 open class NetworkInterface: Hashable, Equatable, CustomStringConvertible {
-    open let interface: SCNetworkInterface
+    public let interface: SCNetworkInterface
 
     public init(_ interface: SCNetworkInterface) {
         self.interface = interface
@@ -18,7 +18,7 @@ open class NetworkInterface: Hashable, Equatable, CustomStringConvertible {
 
     // MARK: Interface configuration
 
-    open static func all() throws -> [NetworkInterface] {
+    public static func all() throws -> [NetworkInterface] {
         return try (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])~.lazy.map { NetworkInterface($0) }
     }
 
@@ -124,7 +124,7 @@ open class NetworkInterface: Hashable, Equatable, CustomStringConvertible {
         return self.interface.hashValue
     }
 
-    open static func == (lhs: NetworkInterface, rhs: NetworkInterface) -> Bool {
+    public static func == (lhs: NetworkInterface, rhs: NetworkInterface) -> Bool {
         return lhs.interface == rhs.interface
     }
 

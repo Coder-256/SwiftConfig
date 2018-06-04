@@ -76,7 +76,7 @@ open class NetworkReachability: Hashable, Equatable, CustomStringConvertible {
         return self.target.hashValue
     }
 
-    open static func == (lhs: NetworkReachability, rhs: NetworkReachability) -> Bool {
+    public static func == (lhs: NetworkReachability, rhs: NetworkReachability) -> Bool {
         return lhs.target == rhs.target
     }
 

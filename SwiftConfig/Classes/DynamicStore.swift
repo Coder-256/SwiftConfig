@@ -127,7 +127,7 @@ open class DynamicStore: Hashable, Equatable, CustomStringConvertible {
     // MARK: DHCP
 
     open class DHCPInfo {
-        open let info: CFDictionary
+        public let info: CFDictionary
 
         public init(_ info: CFDictionary) {
             self.info = info
@@ -154,7 +154,7 @@ open class DynamicStore: Hashable, Equatable, CustomStringConvertible {
         return self.store.hashValue
     }
 
-    open static func == (lhs: DynamicStore, rhs: DynamicStore) -> Bool {
+    public static func == (lhs: DynamicStore, rhs: DynamicStore) -> Bool {
         return lhs.store == rhs.store
     }
 

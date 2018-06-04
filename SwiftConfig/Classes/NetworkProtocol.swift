@@ -10,7 +10,7 @@ import Foundation
 import SystemConfiguration
 
 open class NetworkProtocol: Hashable, Equatable, CustomStringConvertible {
-    open let netProtocol: SCNetworkProtocol
+    public let netProtocol: SCNetworkProtocol
 
     public init(_ netProtocol: SCNetworkProtocol) {
         self.netProtocol = netProtocol
@@ -40,7 +40,7 @@ open class NetworkProtocol: Hashable, Equatable, CustomStringConvertible {
         return self.netProtocol.hashValue
     }
 
-    open static func == (lhs: NetworkProtocol, rhs: NetworkProtocol) -> Bool {
+    public static func == (lhs: NetworkProtocol, rhs: NetworkProtocol) -> Bool {
         return lhs.netProtocol == rhs.netProtocol
     }
 

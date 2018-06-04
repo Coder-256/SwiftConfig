@@ -186,7 +186,7 @@ open class ConfigPreferences: Hashable, Equatable, CustomStringConvertible {
         return self.prefs.hashValue
     }
 
-    open static func == (lhs: ConfigPreferences, rhs: ConfigPreferences) -> Bool {
+    public static func == (lhs: ConfigPreferences, rhs: ConfigPreferences) -> Bool {
         return lhs.prefs == rhs.prefs
     }
 

@@ -11,7 +11,7 @@ import SystemConfiguration
 
 open class BondNetworkInterface: NetworkInterface {
     open class Status: Equatable, Hashable, CustomStringConvertible {
-        open let status: SCBondStatus
+        public let status: SCBondStatus
 
         public init(_ status: SCBondStatus) {
             self.status = status
@@ -30,7 +30,7 @@ open class BondNetworkInterface: NetworkInterface {
             return self.status.hashValue
         }
 
-        open static func == (lhs: BondNetworkInterface.Status, rhs: BondNetworkInterface.Status) -> Bool {
+        public static func == (lhs: BondNetworkInterface.Status, rhs: BondNetworkInterface.Status) -> Bool {
             return lhs.status == rhs.status
         }
 
