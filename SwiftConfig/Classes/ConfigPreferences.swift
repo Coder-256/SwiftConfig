@@ -23,8 +23,8 @@ open class ConfigPreferences: Hashable, Equatable, CustomStringConvertible {
 
     private var _prefs: SCPreferences?
     // swiftlint:disable:next force_unwrapping
-    open var prefs: SCPreferences { return self._prefs! }
-    open var callout: ((SCPreferencesNotification) -> Void)?
+    public final var prefs: SCPreferences { return self._prefs! }
+    public final var callout: ((SCPreferencesNotification) -> Void)?
 
     public init(_ prefs: SCPreferences) {
         self._prefs = prefs

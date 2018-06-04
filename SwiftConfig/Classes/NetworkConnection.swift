@@ -20,8 +20,8 @@ private func connectionCallout(conn: SCNetworkConnection,
 open class NetworkConnection: Hashable, Equatable, CustomStringConvertible {
     private var _conn: SCNetworkConnection?
     // swiftlint:disable:next force_unwrapping
-    open var conn: SCNetworkConnection { return self._conn! }
-    open var callout: ((SCNetworkConnectionStatus) -> Void)?
+    public final var conn: SCNetworkConnection { return self._conn! }
+    public final var callout: ((SCNetworkConnectionStatus) -> Void)?
 
     public init(_ conn: SCNetworkConnection) {
         self._conn = conn

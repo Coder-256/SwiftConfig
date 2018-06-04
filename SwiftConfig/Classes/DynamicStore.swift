@@ -25,8 +25,8 @@ open class DynamicStore: Hashable, Equatable, CustomStringConvertible {
     private var _store: SCDynamicStore?
     private var _notificationKeys: [Key] = []
     // swiftlint:disable:next force_unwrapping
-    open var store: SCDynamicStore { return self._store! }
-    open var callout: (([Key]) -> Void)?
+    public final var store: SCDynamicStore { return self._store! }
+    public final var callout: (([Key]) -> Void)?
 
     public init(_ store: SCDynamicStore) {
         self._store = store
