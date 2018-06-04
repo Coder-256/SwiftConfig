@@ -20,8 +20,8 @@ private func reachabilityCallout(target: SCNetworkReachability,
 open class NetworkReachability: Hashable, Equatable, CustomStringConvertible {
     private var _target: SCNetworkReachability?
     // swiftlint:disable:next force_unwrapping
-    public final var target: SCNetworkReachability { return self._target! }
-    public final var callout: ((SCNetworkReachabilityFlags) -> Void)?
+    public var target: SCNetworkReachability { return self._target! }
+    public var callout: ((SCNetworkReachabilityFlags) -> Void)?
 
     private func setupCallout() {
         var context = ConfigHelper<NetworkReachability, SCNetworkReachabilityContext>.makeContext(self)
