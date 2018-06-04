@@ -64,7 +64,7 @@ open class DynamicStore: Hashable, Equatable, CustomStringConvertible {
 
     open func computerInfo() throws -> (name: String, encoding: CFStringEncoding) {
         // If name is not nil, the encoding should be updated, but set this default just in case
-        var encoding: CFStringEncoding = CFStringGetSystemEncoding()
+        var encoding = CFStringGetSystemEncoding()
         let name = try SCDynamicStoreCopyComputerName(self.store, &encoding)~ as String
         return (name: name, encoding: encoding)
     }
