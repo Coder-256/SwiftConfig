@@ -141,20 +141,12 @@ open class ConfigPreferences: Hashable, Equatable, CustomStringConvertible {
         return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.lazy.map { NetworkService($0) }
     }
 
-    open func setComputerName(name: CFString?, nameEncoding: CFStringEncoding) throws {
-        try SCPreferencesSetComputerName(self.prefs, name, nameEncoding)~
-    }
-
     open func setComputerName(name: String?, nameEncoding: CFStringEncoding) throws {
-        try self.setComputerName(name: name as CFString?, nameEncoding: nameEncoding)
-    }
-
-    open func setLocalHostName(name: CFString?) throws {
-        try SCPreferencesSetLocalHostName(self.prefs, name)~
+        try SCPreferencesSetComputerName(self.prefs, name as CFString?, nameEncoding)~
     }
 
     open func setLocalHostName(name: String?) throws {
-        try self.setLocalHostName(name: name as CFString?)
+        try SCPreferencesSetLocalHostName(self.prefs, name as CFString?)~
     }
 
     // MARK: Bond

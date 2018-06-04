@@ -83,16 +83,22 @@ open class NetworkInterface: Hashable, Equatable, CustomStringConvertible {
                         available: (available?.takeRetainedValue() as? [CFString])~)
     }
 
-    open func mediaOptions(subType: CFString) throws -> [CFString] {
-        return try SCNetworkInterfaceCopyMediaSubTypeOptions(try self.mediaOptions().available as CFArray, subType)%
+    private func availableMediaOptions(filter: Bool) throws -> CFArray {
+        var available: Unmanaged<CFArray>?
+        try SCNetworkInterfaceCopyMediaOptions(self.interface, nil, nil, &available, filter)~
+        return try (available?.takeRetainedValue())~
+    }
+
+    open func mediaOptions(subType: CFString, filter: Bool = true) throws -> [CFString] {
+        return try SCNetworkInterfaceCopyMediaSubTypeOptions(try self.availableMediaOptions(filter: filter), subType)%
     }
 
     open func setMediaOptions(subType: CFString, _ newValue: [CFString]) throws {
         try SCNetworkInterfaceSetMediaOptions(self.interface, subType, newValue as CFArray)~
     }
 
-    open func mediaSubTypes() throws -> [CFString] {
-        return try SCNetworkInterfaceCopyMediaSubTypes(self.mediaOptions().available as CFArray)%
+    open func mediaSubTypes(filter: Bool = true) throws -> [CFString] {
+        return try SCNetworkInterfaceCopyMediaSubTypes(try self.availableMediaOptions(filter: true))%
     }
 
     open func mtu() throws -> (current: Int32, min: Int32, max: Int32) {
