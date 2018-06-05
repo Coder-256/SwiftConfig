@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
 
   s.platform = :osx
   s.osx.deployment_target = "10.12"
-  s.swift_version = '4.1'
+  s.swift_version = '4.2'
 
   s.source_files = 'SwiftConfig/Classes/**/*'
 
