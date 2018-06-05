@@ -18,7 +18,7 @@ open class NetworkInterface: Hashable, Equatable, CustomStringConvertible {
 
     // MARK: Interface configuration
 
-    public static func all() throws -> [NetworkInterface] {
+    open class func all() throws -> [NetworkInterface] {
         return try (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])~.lazy.map { NetworkInterface($0) }
     }
 

@@ -20,14 +20,14 @@ open class CaptiveNetworkManager: Hashable, Equatable, CustomStringConvertible {
         return names
     }
 
-    public static func supportedInterfaces() throws -> [NetworkInterface] {
+    open class func supportedInterfaces() throws -> [NetworkInterface] {
         let all = try NetworkInterface.all()
         return try CaptiveNetworkManager.supportedNames().lazy.compactMap { name in
             all.first { $0.bsdName() == name }
         }
     }
 
-    public static func setSupportedSSIDs(_ newValue: [String]) -> Bool {
+    open class func setSupportedSSIDs(_ newValue: [String]) -> Bool {
         return CNSetSupportedSSIDs(newValue as CFArray)
     }
 
