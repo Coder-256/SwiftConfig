@@ -9,8 +9,8 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkSet: Hashable, Equatable {
-    open let set: SCNetworkSet
+open class NetworkSet: Hashable, Equatable, CustomStringConvertible {
+    public let set: SCNetworkSet
 
     public init(_ set: SCNetworkSet) {
         self.set = set
@@ -29,11 +29,11 @@ open class NetworkSet: Hashable, Equatable {
     }
 
     open func services() throws -> [NetworkService] {
-        let arr = try (SCNetworkSetCopyServices(self.set) as? [SCNetworkService])%.map { NetworkService($0) }
+        let arr = try (SCNetworkSetCopyServices(self.set) as? [SCNetworkService])%.lazy.map { NetworkService($0) }
         let order = try self.serviceOrder()
-        return arr.sorted {
-            guard let lhs = $0.serviceID,
-                let rhs = $1.serviceID,
+        return arr.lazy.sorted {
+            guard let lhs = $0.serviceID(),
+                let rhs = $1.serviceID(),
                 let lIndex = order.index(of: lhs),
                 let rIndex = order.index(of: rhs) else { return false }
             return lIndex < rIndex
@@ -72,7 +72,11 @@ open class NetworkSet: Hashable, Equatable {
         return self.set.hashValue
     }
 
-    open static func == (lhs: NetworkSet, rhs: NetworkSet) -> Bool {
+    public static func == (lhs: NetworkSet, rhs: NetworkSet) -> Bool {
         return lhs.set == rhs.set
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.set) as String? ?? String(describing: self.set)
     }
 }

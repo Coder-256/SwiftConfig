@@ -12,19 +12,21 @@ func noError(_ block: () throws -> Void) {
 class Tests: XCTestCase {
     func testComputerName() {
         noError {
-            print("Computer name: \(try DynamicStore(name: "SwiftConfig").computerInfo().name)")
+            print("\nComputer name: \(try DynamicStore(name: "SwiftConfig").computerInfo().name)\n")
         }
     }
 
     func testActiveServices() {
         noError {
-            guard let firstActive = try ConfigPreferences(name: "SwiftConfig")
+            guard let services = try ConfigPreferences(name: "SwiftConfig")
                 .currentNetworkSet()?
                 .services()
-                .first(where: { try $0.enabled() && $0.interface().active })?
-                .name() else { XCTFail("Got nil"); return }
+                .filter({ try $0.enabled() && $0.interface().active() })
+                .map({ "  - \($0.name() ?? "unknown"): \($0.description)" })
+                else { XCTFail("Unable to get active services"); return }
 
-            print("First active service: \(firstActive)")
+            XCTAssertFalse(services.isEmpty, "No active services found. Are you connected to the internet?")
+            print("\nActive services:\n\(services.joined(separator: "\n"))\n")
         }
     }
 }

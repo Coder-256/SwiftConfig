@@ -9,8 +9,8 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkProtocol: Hashable, Equatable {
-    open let netProtocol: SCNetworkProtocol
+open class NetworkProtocol: Hashable, Equatable, CustomStringConvertible {
+    public let netProtocol: SCNetworkProtocol
 
     public init(_ netProtocol: SCNetworkProtocol) {
         self.netProtocol = netProtocol
@@ -40,7 +40,11 @@ open class NetworkProtocol: Hashable, Equatable {
         return self.netProtocol.hashValue
     }
 
-    open static func == (lhs: NetworkProtocol, rhs: NetworkProtocol) -> Bool {
+    public static func == (lhs: NetworkProtocol, rhs: NetworkProtocol) -> Bool {
         return lhs.netProtocol == rhs.netProtocol
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.netProtocol) as String? ?? String(describing: self.netProtocol)
     }
 }

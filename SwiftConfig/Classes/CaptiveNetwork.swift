@@ -9,7 +9,7 @@
 import Foundation
 import SystemConfiguration.CaptiveNetwork
 
-open class CaptiveNetworkManager {
+open class CaptiveNetworkManager: Hashable, Equatable, CustomStringConvertible {
     public enum InterfaceError: Error {
         case unsupported
         case gotNil
@@ -20,18 +20,18 @@ open class CaptiveNetworkManager {
         return names
     }
 
-    open static func supportedInterfaces() throws -> [NetworkInterface] {
+    open class func supportedInterfaces() throws -> [NetworkInterface] {
         let all = try NetworkInterface.all()
         return try CaptiveNetworkManager.supportedNames().lazy.compactMap { name in
             all.first { $0.bsdName() == name }
         }
     }
 
-    open static func setSupportedSSIDs(_ newValue: [String]) -> Bool {
+    open class func setSupportedSSIDs(_ newValue: [String]) -> Bool {
         return CNSetSupportedSSIDs(newValue as CFArray)
     }
 
-    open let interface: NetworkInterface
+    public let interface: NetworkInterface
     private let interfaceName: CFString
 
     public init(interface: NetworkInterface) throws {
@@ -47,5 +47,20 @@ open class CaptiveNetworkManager {
         } else {
             return CNMarkPortalOffline(self.interfaceName)
         }
+    }
+
+    open var hashValue: Int {
+        return self.interface.hashValue
+    }
+
+    public static func == (lhs: CaptiveNetworkManager, rhs: CaptiveNetworkManager) -> Bool {
+        return lhs.interface == rhs.interface
+    }
+
+    open var description: String {
+        if let interfaceDescription = CFCopyDescription(self.interface) as String? {
+            return "CaptiveNetwork(interface: \(interfaceDescription))"
+        }
+        return String(describing: self.interface)
     }
 }

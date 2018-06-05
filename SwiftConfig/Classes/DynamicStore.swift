@@ -18,15 +18,15 @@ private func storeCallout(store: SCDynamicStore,
     }
 }
 
-open class DynamicStore: Hashable, Equatable {
+open class DynamicStore: Hashable, Equatable, CustomStringConvertible {
     public typealias Key = CFString
     public typealias Value = CFPropertyList
 
     private var _store: SCDynamicStore?
     private var _notificationKeys: [Key] = []
     // swiftlint:disable:next force_unwrapping
-    open var store: SCDynamicStore { return self._store! }
-    open var callout: (([Key]) -> Void)?
+    public var store: SCDynamicStore { return self._store! }
+    public var callout: (([Key]) -> Void)?
 
     public init(_ store: SCDynamicStore) {
         self._store = store
@@ -64,7 +64,7 @@ open class DynamicStore: Hashable, Equatable {
 
     open func computerInfo() throws -> (name: String, encoding: CFStringEncoding) {
         // If name is not nil, the encoding should be updated, but set this default just in case
-        var encoding: CFStringEncoding = CFStringGetSystemEncoding()
+        var encoding = CFStringGetSystemEncoding()
         let name = try SCDynamicStoreCopyComputerName(self.store, &encoding)~ as String
         return (name: name, encoding: encoding)
     }
@@ -127,7 +127,7 @@ open class DynamicStore: Hashable, Equatable {
     // MARK: DHCP
 
     open class DHCPInfo {
-        open let info: CFDictionary
+        public let info: CFDictionary
 
         public init(_ info: CFDictionary) {
             self.info = info
@@ -137,11 +137,11 @@ open class DynamicStore: Hashable, Equatable {
             return DHCPInfoGetOptionData(self.info, code)
         }
 
-        open var leaseStart: CFDate? {
+        open func leaseStart() -> CFDate? {
             return DHCPInfoGetLeaseStartTime(self.info)
         }
 
-        open var leaseExpiration: CFDate? {
+        open func leaseExpiration() -> CFDate? {
             return DHCPInfoGetLeaseExpirationTime(self.info)
         }
     }
@@ -154,7 +154,11 @@ open class DynamicStore: Hashable, Equatable {
         return self.store.hashValue
     }
 
-    open static func == (lhs: DynamicStore, rhs: DynamicStore) -> Bool {
+    public static func == (lhs: DynamicStore, rhs: DynamicStore) -> Bool {
         return lhs.store == rhs.store
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.store) as String? ?? String(describing: self.store)
     }
 }

@@ -97,8 +97,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED83F69620348A760038D96B /* Build configuration list for PBXNativeTarget "SwiftConfig_Tests" */;
 			buildPhases = (
-				1684B46A20C1F5FA0037BBDF /* SwiftLint */,
 				10BFCDC5810B04D0F442DB6D /* [CP] Check Pods Manifest.lock */,
+				1684B46A20C1F5FA0037BBDF /* SwiftLint */,
 				ED83F68620348A760038D96B /* Sources */,
 				ED83F68720348A760038D96B /* Frameworks */,
 				ED83F68820348A760038D96B /* Resources */,
@@ -125,6 +125,7 @@
 				TargetAttributes = {
 					ED83F68920348A760038D96B = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = ED83F67720348A760038D96B;
 					};
@@ -351,7 +352,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.jacobgreenfield.SwiftConfig-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "";
 			};
 			name = Debug;
@@ -371,7 +372,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.jacobgreenfield.SwiftConfig-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "";
 			};
 			name = Release;

@@ -9,8 +9,8 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkInterface: Hashable, Equatable {
-    open let interface: SCNetworkInterface
+open class NetworkInterface: Hashable, Equatable, CustomStringConvertible {
+    public let interface: SCNetworkInterface
 
     public init(_ interface: SCNetworkInterface) {
         self.interface = interface
@@ -18,8 +18,8 @@ open class NetworkInterface: Hashable, Equatable {
 
     // MARK: Interface configuration
 
-    open static func all() throws -> [NetworkInterface] {
-        return try (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])~.map { NetworkInterface($0) }
+    open class func all() throws -> [NetworkInterface] {
+        return try (SCNetworkInterfaceCopyAll() as? [SCNetworkInterface])~.lazy.map { NetworkInterface($0) }
     }
 
     open func supportedInterfaceTypes() -> [CFString]? {
@@ -83,16 +83,22 @@ open class NetworkInterface: Hashable, Equatable {
                         available: (available?.takeRetainedValue() as? [CFString])~)
     }
 
-    open func mediaOptions(subType: CFString) throws -> [CFString] {
-        return try SCNetworkInterfaceCopyMediaSubTypeOptions(try self.mediaOptions().available as CFArray, subType)%
+    private func availableMediaOptions(filter: Bool) throws -> CFArray {
+        var available: Unmanaged<CFArray>?
+        try SCNetworkInterfaceCopyMediaOptions(self.interface, nil, nil, &available, filter)~
+        return try (available?.takeRetainedValue())~
+    }
+
+    open func mediaOptions(subType: CFString, filter: Bool = true) throws -> [CFString] {
+        return try SCNetworkInterfaceCopyMediaSubTypeOptions(try self.availableMediaOptions(filter: filter), subType)%
     }
 
     open func setMediaOptions(subType: CFString, _ newValue: [CFString]) throws {
         try SCNetworkInterfaceSetMediaOptions(self.interface, subType, newValue as CFArray)~
     }
 
-    open func mediaSubTypes() throws -> [CFString] {
-        return try SCNetworkInterfaceCopyMediaSubTypes(self.mediaOptions().available as CFArray)%
+    open func mediaSubTypes(filter: Bool = true) throws -> [CFString] {
+        return try SCNetworkInterfaceCopyMediaSubTypes(try self.availableMediaOptions(filter: true))%
     }
 
     open func mtu() throws -> (current: Int32, min: Int32, max: Int32) {
@@ -115,7 +121,7 @@ open class NetworkInterface: Hashable, Equatable {
         try SCNetworkInterfaceForceConfigurationRefresh(interface)~
     }
 
-    open var active: Bool {
+    open func active() -> Bool {
         guard let bsdName = self.bsdName() else { return false }
         return _swiftconfig_check_active(bsdName as String)
     }
@@ -124,7 +130,11 @@ open class NetworkInterface: Hashable, Equatable {
         return self.interface.hashValue
     }
 
-    open static func == (lhs: NetworkInterface, rhs: NetworkInterface) -> Bool {
+    public static func == (lhs: NetworkInterface, rhs: NetworkInterface) -> Bool {
         return lhs.interface == rhs.interface
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.interface) as String? ?? String(describing: self.interface)
     }
 }

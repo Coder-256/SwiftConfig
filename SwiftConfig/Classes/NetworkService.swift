@@ -9,8 +9,8 @@
 import Foundation
 import SystemConfiguration
 
-open class NetworkService: Hashable, Equatable {
-    open let service: SCNetworkService
+open class NetworkService: Hashable, Equatable, CustomStringConvertible {
+    public let service: SCNetworkService
 
     public init(_ service: SCNetworkService) {
         self.service = service
@@ -21,7 +21,8 @@ open class NetworkService: Hashable, Equatable {
     }
 
     open func protocols() throws -> [NetworkProtocol] {
-        return try (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])%.map { NetworkProtocol($0) }
+        return try (SCNetworkServiceCopyProtocols(self.service) as? [SCNetworkProtocol])%
+            .lazy.map { NetworkProtocol($0) }
     }
 
     open func establishDefault() throws {
@@ -52,7 +53,7 @@ open class NetworkService: Hashable, Equatable {
         return try NetworkProtocol(SCNetworkServiceCopyProtocol(self.service, protocolType)~)
     }
 
-    open var serviceID: CFString! {
+    open func serviceID() -> CFString! {
         return SCNetworkServiceGetServiceID(self.service)
     }
 
@@ -68,7 +69,11 @@ open class NetworkService: Hashable, Equatable {
         return self.service.hashValue
     }
 
-    open static func == (lhs: NetworkService, rhs: NetworkService) -> Bool {
+    public static func == (lhs: NetworkService, rhs: NetworkService) -> Bool {
         return lhs.service == rhs.service
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.service) as String? ?? String(describing: self.service)
     }
 }

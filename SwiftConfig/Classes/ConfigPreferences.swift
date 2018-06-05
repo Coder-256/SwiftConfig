@@ -17,14 +17,14 @@ private func configCallout(prefs: SCPreferences,
     }
 }
 
-open class ConfigPreferences: Hashable, Equatable {
+open class ConfigPreferences: Hashable, Equatable, CustomStringConvertible {
     public typealias Key = CFString
     public typealias Value = CFPropertyList
 
     private var _prefs: SCPreferences?
     // swiftlint:disable:next force_unwrapping
-    open var prefs: SCPreferences { return self._prefs! }
-    open var callout: ((SCPreferencesNotification) -> Void)?
+    public var prefs: SCPreferences { return self._prefs! }
+    public var callout: ((SCPreferencesNotification) -> Void)?
 
     public init(_ prefs: SCPreferences) {
         self._prefs = prefs
@@ -125,7 +125,7 @@ open class ConfigPreferences: Hashable, Equatable {
     }
 
     open func networkSets() -> [NetworkSet]! {
-        return (SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet])?.map { NetworkSet($0) }
+        return (SCNetworkSetCopyAll(self.prefs) as? [SCNetworkSet])?.lazy.map { NetworkSet($0) }
     }
 
     open func currentNetworkSet() -> NetworkSet! {
@@ -137,35 +137,27 @@ open class ConfigPreferences: Hashable, Equatable {
         return try NetworkSet(SCNetworkSetCopy(self.prefs, setID)~)
     }
 
-    open var services: [NetworkService]! {
-        return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.map { NetworkService($0) }
-    }
-
-    open func setComputerName(name: CFString?, nameEncoding: CFStringEncoding) throws {
-        try SCPreferencesSetComputerName(self.prefs, name, nameEncoding)~
+    open func services() -> [NetworkService]! {
+        return (SCNetworkServiceCopyAll(self.prefs) as? [SCNetworkService])?.lazy.map { NetworkService($0) }
     }
 
     open func setComputerName(name: String?, nameEncoding: CFStringEncoding) throws {
-        try self.setComputerName(name: name as CFString?, nameEncoding: nameEncoding)
-    }
-
-    open func setLocalHostName(name: CFString?) throws {
-        try SCPreferencesSetLocalHostName(self.prefs, name)~
+        try SCPreferencesSetComputerName(self.prefs, name as CFString?, nameEncoding)~
     }
 
     open func setLocalHostName(name: String?) throws {
-        try self.setLocalHostName(name: name as CFString?)
+        try SCPreferencesSetLocalHostName(self.prefs, name as CFString?)~
     }
 
     // MARK: Bond
 
     open func bondInterfaces() -> [BondNetworkInterface]! {
-        return (SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface])?.map { BondNetworkInterface($0) }
+        return (SCBondInterfaceCopyAll(self.prefs) as? [SCBondInterface])?.lazy.map { BondNetworkInterface($0) }
     }
 
-    open var availableBondMemberInterfaces: [NetworkInterface]! {
+    open func availableBondMemberInterfaces() -> [NetworkInterface]! {
         return (SCBondInterfaceCopyAvailableMemberInterfaces(self.prefs) as? [SCNetworkInterface])?
-            .map { NetworkInterface($0) }
+            .lazy.map { NetworkInterface($0) }
     }
 
     open func bondCreate() throws -> BondNetworkInterface {
@@ -174,8 +166,8 @@ open class ConfigPreferences: Hashable, Equatable {
 
     // MARK: VLAN
 
-    open var vlanInterfaces: [VLANNetworkInterface]! {
-        return (SCVLANInterfaceCopyAll(self.prefs) as? [SCVLANInterface])?.map { VLANNetworkInterface($0) }
+    open func vlanInterfaces() -> [VLANNetworkInterface]! {
+        return (SCVLANInterfaceCopyAll(self.prefs) as? [SCVLANInterface])?.lazy.map { VLANNetworkInterface($0) }
     }
 
     open func vlanCreate(physical: VLANNetworkInterface, tag: CFNumber) throws -> VLANNetworkInterface {
@@ -186,7 +178,11 @@ open class ConfigPreferences: Hashable, Equatable {
         return self.prefs.hashValue
     }
 
-    open static func == (lhs: ConfigPreferences, rhs: ConfigPreferences) -> Bool {
+    public static func == (lhs: ConfigPreferences, rhs: ConfigPreferences) -> Bool {
         return lhs.prefs == rhs.prefs
+    }
+
+    open var description: String {
+        return CFCopyDescription(self.prefs) as String? ?? String(describing: self.prefs)
     }
 }

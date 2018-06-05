@@ -10,8 +10,9 @@ import Foundation
 import SystemConfiguration
 
 open class VLANNetworkInterface: NetworkInterface {
-    open static var availablePhysicalInterfaces: [NetworkInterface]! {
-        return (SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCNetworkInterface])?.map { NetworkInterface($0) }
+    open class func availablePhysicalInterfaces() -> [NetworkInterface]! {
+        return (SCVLANInterfaceCopyAvailablePhysicalInterfaces() as? [SCNetworkInterface])?
+            .lazy.map { NetworkInterface($0) }
     }
 
     open func remove() throws {
