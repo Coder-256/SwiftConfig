@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftConfig'
-  s.version          = '1.2.0'
+  s.version          = '1.2.1'
   s.summary          = 'A simple, object-oriented wrapper for SystemConfiguration.'
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
 
   s.platform = :osx
   s.osx.deployment_target = "10.12"
-  s.swift_version = '4.1'
+  s.swift_version = '4.2'
 
   s.source_files = 'SwiftConfig/Classes/**/*'
 
