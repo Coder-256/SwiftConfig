@@ -190,7 +190,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "if which swiftlint >/dev/null; then\n    echo -n \"SwiftLint \"\n    swiftlint version\n    swiftlint --path \"${PROJECT_DIR}/../\"\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    echo -n \"SwiftLint \"\n    swiftlint version\n    swiftlint --path \"${PROJECT_DIR}/../\"\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    [ \"${CI:-}\" == \"true\" ] && exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		174EB9C30029A93A76FF59BD /* [CP] Embed Pods Frameworks */ = {
